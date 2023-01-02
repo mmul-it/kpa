@@ -1,0 +1,6 @@
+---
+
+- name: Creating the template
+  template:
+    src: slides.md.j2
+    dest: "{{ marp_output_file }}"

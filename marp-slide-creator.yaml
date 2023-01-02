@@ -1,0 +1,7 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - import_role:
+        name: marp-slides-creator
