@@ -12,10 +12,18 @@ marp: true
 {# Starting with effective slides #}
 {% for slide in marp_slides %}
 {% if slide.cover is defined and slide.cover | bool %}
+
+---
+
 {{ lookup('template', marp_cover_template, template_vars=dict(slide=slide)) }}
 {% else %}
 
+---
+
 {{ lookup('template', marp_chapter_template, template_vars=dict(slide=slide)) }}
+
+---
+
 {{ lookup('file', slide.content) }}
 {% endif %}
 {% endfor %}
