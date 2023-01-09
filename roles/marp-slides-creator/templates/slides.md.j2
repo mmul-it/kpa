@@ -8,12 +8,6 @@ backgroundImage: url('{{ marp_backgroundImage }}')
 author: {{ marp_author }}
 {% endif %}
 paginate: {{ marp_paginate }}
-{% if marp_header is defined %}
-header: '{{ marp_header }}'
-{% endif %}
-{% if marp_footer is defined %}
-header: '{{ marp_footer }}'
-{% endif %}
 marp: true
 {# Starting with effective slides #}
 {% for slide in marp_slides %}
@@ -29,6 +23,13 @@ marp: true
 {{ lookup('template', marp_chapter_template, template_vars=dict(slide=slide)) }}
 
 ---
+
+{% if marp_header is defined and marp_header | bool %}
+<!-- header: '{{ marp_title }} | {{ marp_author }}' -->
+{% endif %}
+{% if marp_footer is defined and marp_footer | bool %}
+<!-- footer: '{{ slide.chapter }} | {{ slide.title }}' -->
+{% endif %}
 
 {{ lookup('file', slide.content) }}
 {% endif %}

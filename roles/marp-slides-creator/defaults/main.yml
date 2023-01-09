@@ -4,5 +4,6 @@ marp_output_file: "{{ playbook_dir }}/slides/slides.md"
 marp_theme: default
 marp_backgroundColor: '#ffffff'
 marp_paginate: false
-
+marp_header: true
+marp_footer: true
 marp_slides: {}
