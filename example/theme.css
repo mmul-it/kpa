@@ -1,0 +1,57 @@
+/*
+ * @theme example
+ * @auto-scaling false
+ */
+
+@import 'gaia';
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+* {
+  /* font-family: 'Roboto', sans-serif; */
+}
+
+header,
+footer {
+  margin: 0;
+  position: absolute;
+  left: 50px;
+  color: #56474c;
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 42px;
+}
+
+h2 {
+  font-size: 42px;
+}
+
+img {
+  background-color: transparent !important;
+}
+
+p,
+blockquote,section {
+  font-size: 24px;
+  font-family: 'Avenir Next', Avenir, 'Trebuchet MS', 'Segoe UI', sans-serif;
+  color: #17174b;
+}
+
+table, code, .language-console, .language-yaml {
+  font-size: 14px;
+}
+
+.txt-tip {
+  font-size: 18px;
+  font-style: italic;
+}
+
+.txt-white {
+  color: #fff;
+}
+
+.txt-yellow {
+  color: #dfdb48;
+}
