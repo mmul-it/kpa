@@ -1,1 +1,4 @@
-slides
+projects/*
+!projects/example
+slides/*
+!slides/projects

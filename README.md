@@ -1,16 +1,16 @@
 # KPA - The Knowledge Pods Approach
 
-This repository defines the **Knowledge Pods Approach** (**KPA**), an agile way to create, maintain and evolve training materials using [Markdown]([Markdown - Wikipedia](https://en.wikipedia.org/wiki/Markdown)) files to create beautiful slide sets.
+This repository defines the **Knowledge Pods Approach** (**KPA**), an agile way to create, maintain and evolve training materials and presentations using standard [Markdown](https://en.wikipedia.org/wiki/Markdown) files to create beautiful slide sets.
 
-## How does it work?
+## What is a KPA project?
 
-A **KPA project** is composed by a set of variables and contents that are used by the Ansible role named `marp-slides-creator`, which automates the creation of a Markdown file that can be processed using [Marp (Markdown Presentation Ecosystem)](https://marp.app/#get-started) to obtain a set of slides in the usual presentation formats like **html**, **pdf** and **ppt**.
+A **KPA project** is a set of variables and Markdown files that are used by the Ansible role named `marp-slides-creator` to automate the creation of a single Markdown file that can be processed using [Marp (Markdown Presentation Ecosystem)](https://marp.app/#get-started) to obtain a set of slides in the usual presentation formats like **html**, **pdf** and **ppt**.
 
 **KPA** makes it possible to control all the knowledge in a standard and "edit from everywhere" way, making it easy to compose the set of topics you want to include into the training, by creating sequences of **Knowledge Pods** (**KP**).
 
-### What is a Knowledge Pod?
+## What is a Knowledge Pod?
 
-A **Knowledge Pod** (**KP**) is the smallest part you can split a section of a training.
+A **Knowledge Pod** (**KP**) is the smallest part you can split a section of a training or of a presentation.
 
 You can imagine it as a chapter. For example, if you need to deliver a training named "**How to use my technology**" in which you'll have to cover an **introduction** to your technology, the **prerequisites**, the **installation** and finally **day 0 operation**, then each one of these chapters would be a Knowledge Pod, like:
 
@@ -24,40 +24,57 @@ You can imagine it as a chapter. For example, if you need to deliver a training 
 
 A **Knowledge Pod** should have, uniformly, the same duration (say one hour), so that it will be easy to compose a training by picking the needed KP.
 
+Each section of a **Knowledge Pod**, say a paragraph, is separated from the other with the `---` Markdown element, which represents a new slide.
+
+## What are the benefits of adopting KPA?
+
+There are several benefits using KPA:
+
+- **Concentrate <u>just</u> on the contents**: once you have defined your project, you don't need to care about anything but writing Knowledge Pods. No no need to manually syntax highlight your code blocks, no need to adapt text, no need to duplicate your slide to modify just a simple sentence.
+  Just write your Knowledge Pods in Markdown, and you're good to go.
+
+- **Compose training and presentations <u>dynamically</u>**: no more Power Point slides cut and paste. You can combine your Knowledge Pods in the way that fits your needs, creating as many variants of your training and presentations as you need.
+
+- **Have the same look & feel for <u>every</u> training or presentation**: no more "*Ok, now you need to apply this new slide format to all our 100 presentations*". You will define your project look & feel one time and it will be applied everywhere, always the same way.
+
+- **Use a <u>standard</u> and <u>reusable</u> format**: the same documentation you will produce with KPA could be used wherever you want, it's Markdown, it's a standard, you will be able to write your own tool to manage your **Knowledge Pods**.
+
+- **Keep everything versioned and <u>in order</u>**: once you'll store your KPA projects in a Git repository you'll get versioning, monitor of the changes and your entire knowledge in one traceable place.
+
+- **Let everyone <u>do their job</u>**: Markdown is simple, even non-technical people can edit Knowledge Pods, so everyone can do their job: graphics can work on the themes, instructors can write the contents and you, the **KPA master ©**, will put everything together.
+
 ## How to create a KPA project
 
-Even if using the [Marp - Markdown Presentation Ecosystem](https://marp.app/#get-started) is quite simple, keeping things clean and ordered can become tricky, particularly when there's a lot of material to work on.
+After cloning this repository you'll see a `projects` directory, meant to contain all your KPA projects. You can use `example` project as your starting point.
 
-The `marp-slides-creator` Ansible role takes a **KPA project** directory and automates the creation of the Marp compatible markdown file that will be used by the tool to generate the slides.
-
-The structure of a **KPA project** directory would be like this:
+This is the structure of a **KPA project**:
 
 ```console
-example/
-├── contents
-│   ├── Topic-1.md
-│   ├── Topic-2.md
-│   ...
-│   └── Topic-18.md
+projects/example/
+├── theme.css
 ├── images
+│   ├── chapter-background.png
 │   ├── cover-background.png
-│   ├── ...
-│   └── logo.png
+│   ├── logo.png
+│   └── slide-background.png
 ├── templates
 │   ├── chapter.md.j2
 │   └── cover.md.j2
-├── Example-Training-01.yml
 ├── slides-settings.yml
-└── theme.css
+├── contents
+│   ├── Topic-1.md
+│   ├── ...
+│   └── Topic-18.md
+└── Example-Training-01.yml
 ```
 
 Where:
 
-- [contents](example/contents/) contains the **Knowledge Pods** in the [Marp Markdown compatible format](https://marpit.marp.app/markdown) (i.e. `---` is the beginning of a new slide).
+- [theme.css](example/theme.css) is the css theme file that overrides Marp's default theme. This is not needed, you can use a [predefined Marp theme]([marp-core/themes at main · marp-team/marp-core · GitHub](https://github.com/marp-team/marp-core/tree/main/themes)).
 
-- [images](example/images/) contains backgrounds, logos and all the useful graphics elements for the slides.
+- [images](projects/example/images/) contains backgrounds, logos and all the useful graphics elements for the slides.
 
-- [templates](example/templates/) contains the templates for the special slides that will be processed by Ansible. These templates will parse the variables, to be reusable. For example, the [chapter.md.j2](example/templates/chapter.md.j2) contains the layout for the slide that will be shown at the beginning of each KP/Chapter:
+- [templates](projects/example/templates/) contains the templates for the special slides that will be processed by Ansible. These templates will parse the variables, to be reusable. For example, the [chapter.md.j2](projects/example/templates/chapter.md.j2) contains the layout for the slide that will be shown at the beginning of each KP/Chapter:
   
   ```markdown
   ---
@@ -69,77 +86,84 @@ Where:
   <span class="txt-yellow">{{ slide.chapter }}</span>
   ```
   
-  The variables used in this file can be declared globally (like `marp_chapter_backgroundImage`, see [slides-settings.yml](example/slides-settings.yml)) or specifically (like `slide.title`, see [Example-Training-01.yml](example/Example-Training-01.yml)).
+  The variables used in this file can be declared globally (like `marp_chapter_backgroundImage`, see [slides-settings.yml](projects/example/slides-settings.yml)) or specifically (like `slide.title`, see [Example-Training-01.yml](projects/example/Example-Training-01.yml)).
 
-- [Example-Training-01.yml](example/Example-Training-01.yml) is the slides set declaration, it contains the structure of the document, in a list element:
+- [slides-settings.yml](projects/example/slides-settings.yml) contains the general presentation parameters that will override role's defaults:
+  
+  ```yaml
+  ---
+  
+  kpa_project_dir: 'projects/example'
+  
+  marp_theme: example
+  marp_backgroundColor: #ffffff
+  marp_backgroundImage: "{{ kpa_project_dir }}/images/slide-background.png"
+  marp_author: 'Raoul Scarazzini'
+  marp_copyright: '© 2023 MiaMammaUsaLinux.org'
+  marp_paginate: true
+  
+  marp_cover_template: "{{ kpa_project_dir }}/templates/cover.md.j2"
+  marp_cover_image: "{{ kpa_project_dir }}/images/cover-image.png"
+  marp_cover_logo: "{{ kpa_project_dir }}/images/logo.png"
+  marp_cover_backgroundImage: "{{ kpa_project_dir }}/images/cover-background.png"
+  
+  marp_chapter_template: "{{ kpa_project_dir }}/templates/chapter.md.j2"
+  marp_chapter_backgroundImage: "{{ kpa_project_dir }}/images/chapter-background.png"
+  ```
+
+- [contents](projects/example/contents/) contains the **Knowledge Pods** in the [Marp Markdown compatible format](https://marpit.marp.app/markdown) (The main rule: `---` is the beginning of a new slide).
+
+- [Example-Training-01.yml](projects/example/Example-Training-01.yml) is the slides set declaration, it contains the structure of the document, in a list element:
   
   ```yaml
   ---
   marp_title: "My spectacular course"
   
   marp_slides:
-    # Day one
+    # DAY 1
     - cover: true
-      title: "{{ marp_title }} - DAY 1"
+      title: "{{ marp_title }}"
       subtitle: "DAY ONE"
     - chapter: 'DAY ONE - PART ONE'
       title: 'Topic 1'
-      content: 'example/contents/Topic-1.md'
+      content: "{{ kpa_project_dir }}/contents/Topic-1.md"
     - chapter: 'DAY ONE - PART TWO'
       title: 'Topic 2'
-      content: 'example/contents/Topic-2.md'
+      content: "{{ kpa_project_dir }}/contents/Topic-2.md"
       ...
       ...
-    # Day two
+    # Day 2
     - cover: true
-      title: "{{ marp_title }} - DAY 2"
+      title: "{{ marp_title }}"
       subtitle: "DAY TWO"
     - chapter: 'DAY TWO - PART SEVEN'
       title: 'Topic 7'
-      content: 'example/contents/Topic-7.md'
+      content: "{{ kpa_project_dir }}/contents/Topic-7.md"
       ...
       ...
-    # Day three
+    # Day 3
     - cover: true
-      title: "{{ marp_title }} - DAY 3"
+      title: "{{ marp_title }}"
       subtitle: "DAY THREE"
     - chapter: 'DAY THREE - PART THIRTEEN'
       title: 'Topic 13'
-      content: 'example/contents/Topic-13.md'
+      content: "{{ kpa_project_dir }}/contents/Topic-13.md"
       ...
       ...
-    - chapter: 'DAY THREE - PART THIRTEEN'
+    - chapter: 'DAY THREE - PART EIGHTEEN'
       title: 'Topic 18'
-      content: 'example/contents/Topic-18.md'
+      content: "{{ kpa_project_dir }}/contents/Topic-18.md"
   ```
 
-- [slides-settings.yml](example/slides-settings.yml) contains the general presentation parameters that will override role's defaults:
-  
-  ```yaml
-  ---
-  
-  marp_theme: example
-  marp_backgroundColor: #ffffff
-  marp_backgroundImage: 'example/images/slide-background.png'
-  marp_author: 'Raoul Scarazzini'
-  marp_copyright: '© 2023 MiaMammaUsaLinux.org'
-  marp_paginate: true
-  
-  marp_cover_template: 'example/templates/cover.md.j2'
-  marp_cover_image: 'example/images/cover-image.png'
-  marp_cover_logo: 'example/images/logo.png'
-  marp_cover_backgroundImage: 'example/images/cover-background.png'
-  
-  marp_chapter_template: 'example/templates/chapter.md.j2'
-  marp_chapter_backgroundImage: 'example/images/chapter-background.png'
-  ```
-
-- [theme.css](example/theme.css) is the css theme file that overrides Marp's default theme. This is not needed, if you want to use a [predefined Marp theme]([marp-core/themes at main · marp-team/marp-core · GitHub](https://github.com/marp-team/marp-core/tree/main/themes)).
+## How to create the Marp Markdown file with `marp-slides-creator.yml`
 
 Once everything is in place it is time to execute, via `ansible-playbook` command the Ansible playbook named `marp-slides-creator.yml`, passing the **KPA Project** variables related to the general slides settings (`-e @example/slides-settings.yml`) and to the specific training (`-e @example/Example-Training-01.yml`) :
 
-```console
-> ansible-playbook -e @example/slides-settings.yml -e @example/Example-Training-01.yml marp-slides-creator.yml
+```bash
+> ansible-playbook \
+    -e @projects/example/slides-settings.yml \
+    -e @projects/example/Example-Training-01.yml \
+    marp-slides-creator.yml
 [WARNING]: No inventory was parsed, only implicit localhost is available
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
@@ -154,14 +178,20 @@ localhost                  : ok=1    changed=1    unreachable=0    failed=0    s
 
 This command will generate a file named `slides.md` in the `slides` directory, as declared in the `marp_output_file` variable (see [roles/marp-slides-creator/defaults/main.yml](roles/marp-slides-creator/defaults/main.yml)).
 
-## Working with Markdown Marp files
+## How to create the presentation from the Marp Markdown file
 
 To get a presentation with the Markdown file generated by the `marp-slides-creator` Ansible role you can use the [Marp container](https://hub.docker.com/r/marpteam/marp-cli), like this:
 
-```console
-> docker run --rm -e MARP_USER=$(id -u):$(id -g) \
-  -v $PWD:/home/marp/app/ -e LANG=$LANG \
-  marpteam/marp-cli --html true --theme ./example/theme.css slides/slides.md 
+```bash
+> docker run \
+    --rm \
+    -e LANG=$LANG \
+    -e MARP_USER=$(id -u):$(id -g) \
+    -v $PWD:/home/marp/app/ \
+    marpteam/marp-cli \
+      --html true \
+      --theme ./example/theme.css \
+      slides/slides.md 
 [  INFO ] Converting 1 markdown...
 [  INFO ] slides/slides.md => slides/slides.html
 ```
@@ -181,42 +211,32 @@ The `marp-cli` execution should produce these set of slides:
 - Slide:
   ![](images/slide.png)
 
-**Important note for exporting into `html`**: the destination directory of your file should contain the images, css and so on since it will process them "live", this means that you might want to create a symbolic link pointing to your KPA project directory inside your `slides` output directory:
+**Important note about exporting into `html`**: the destination directory of your file should contain the images, css and so on since it will process them "live", this is why you will find a symbolic link pointing to your KPA projects directory inside the `slides` output directory:
 
 ```console
-> ls -al
-total 3196
-drwxrwxr-x 2 rasca rasca    4096 gen 17 18:36 .
-drwxrwxr-x 7 rasca rasca    4096 gen 17 18:30 ..
--rw-r--r-- 1 rasca rasca  144942 gen 17 17:27 slides.html
--rw-rw-r-- 1 rasca rasca   11874 gen 17 17:27 slides.md
--rw-r--r-- 1 rasca rasca 3102777 gen 17 18:29 slides.pdf
-
-> ln -s ../example
-
-> ls -la
+> ls -la slides/
 total 3196
 drwxrwxr-x 2 rasca rasca    4096 gen 17 18:37 .
 drwxrwxr-x 7 rasca rasca    4096 gen 17 18:30 ..
-lrwxrwxrwx 1 rasca rasca      10 gen 17 18:37 example -> ../example
+lrwxrwxrwx 1 rasca rasca      10 gen 17 18:37 projects -> ../projects
 -rw-r--r-- 1 rasca rasca  144942 gen 17 17:27 slides.html
 -rw-rw-r-- 1 rasca rasca   11874 gen 17 17:27 slides.md
 -rw-r--r-- 1 rasca rasca 3102777 gen 17 18:29 slides.pdf
 ```
 
-This way all the references will be found by the `html` file.
+If you want to change the destination of your `.html` slides, remember that you will need the projects directory (or a link) in there.
 
 ### Themes
 
-For the Example training a custom css (check [example/theme.css](example/theme.css)) has been created to reflect the company look & feel.
+For the Example training a custom css (check [projects/example/theme.css](projects/example/theme.css)) has been created to give a sample on how the look & feel might be changed.
 
-This can be integrated with the various tools available for Marp:
+The theme can be integrated with the various tools available for Marp:
 
 - [Marp for VS Code extension](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode): In the `settings.json` file
   
   ```json
   {
-    "markdown.marp.themes": ["./example/theme.css"],
+    "markdown.marp.themes": ["./projects/example/theme.css"],
     "markdown.marp.enableHtml": true
   }
   ```
@@ -224,5 +244,15 @@ This can be integrated with the various tools available for Marp:
 - With the [Marp CLI](https://github.com/marp-team/marp-cli)
   
   ```bash
-  marp --pdf --theme example/theme.css --html true --allow-local-files Example-Training-01.md
+  > docker run \
+    --rm \
+    -e LANG=$LANG \
+    -e MARP_USER=$(id -u):$(id -g) \
+    -v $PWD:/home/marp/app/ \
+    marpteam/marp-cli \
+      --html true \
+      --theme ./projects/example/theme.css \
+      --pdf \
+      --allow-local-files \
+      slides/slides.md
   ```

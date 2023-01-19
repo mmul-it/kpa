@@ -1,0 +1,18 @@
+---
+
+kpa_project_dir: 'projects/example'
+
+marp_theme: example
+marp_backgroundColor: #ffffff
+marp_backgroundImage: "{{ kpa_project_dir }}/images/slide-background.png"
+marp_author: 'Raoul Scarazzini'
+marp_copyright: '© 2023 MiaMammaUsaLinux.org'
+marp_paginate: true
+
+marp_cover_template: "{{ kpa_project_dir }}/templates/cover.md.j2"
+marp_cover_image: "{{ kpa_project_dir }}/images/cover-image.png"
+marp_cover_logo: "{{ kpa_project_dir }}/images/logo.png"
+marp_cover_backgroundImage: "{{ kpa_project_dir }}/images/cover-background.png"
+
+marp_chapter_template: "{{ kpa_project_dir }}/templates/chapter.md.j2"
+marp_chapter_backgroundImage: "{{ kpa_project_dir }}/images/chapter-background.png"
