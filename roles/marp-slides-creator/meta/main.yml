@@ -1,0 +1,11 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: "rascasoft"
+  description: marp-slides-creator
+  license: license (MIT)
+  galaxy_tags:
+    - kpa
+    - marp
+    - markdown
