@@ -1,3 +1,5 @@
+roles/*
+!roles/requirements.yml
 projects/*
 !projects/example
 slides/*

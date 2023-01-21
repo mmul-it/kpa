@@ -2,6 +2,8 @@
 
 marp_title: "My spectacular training"
 
+marp_output_file: "{{ lookup('env', 'PWD') }}/slides/Example-Training-01.md"
+
 marp_slides:
   # DAY 1
   - cover: true

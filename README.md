@@ -4,9 +4,9 @@ This repository defines the **Knowledge Pods Approach** (**KPA**), an agile way 
 
 ## What is a KPA project?
 
-A **KPA project** is a set of variables and Markdown files that are used by the Ansible role named `marp-slides-creator` to automate the creation of a single Markdown file that can be processed using [Marp (Markdown Presentation Ecosystem)](https://marp.app/#get-started) to obtain a set of slides in the usual presentation formats like **html**, **pdf** and **ppt**.
+A **KPA project** is a set of variables and Markdown files that are used by the Ansible role named [kpa_marp_slides_generator](https://github.com/mmul-it/kpa_marp_slides_generator) to automate the creation of a single Markdown file that can be processed using [Marp (Markdown Presentation Ecosystem)](https://marp.app/#get-started) to obtain a set of slides in the usual presentation formats like **html**, **pdf** and **ppt**.
 
-**KPA** makes it possible to control all the knowledge in a standard and "edit from everywhere" way, making it easy to compose the set of topics you want to include into the training, by creating sequences of **Knowledge Pods** (**KP**).
+**KPA** makes it possible to control all the knowledge in a standard and "edit from everywhere" way, making it easy to compose and mix the set of topics you want to include into the training, by creating sequences of **Knowledge Pods** (**KP**).
 
 ## What is a Knowledge Pod?
 
@@ -43,7 +43,7 @@ There are several benefits using KPA:
 
 - **Let everyone <u>do their job</u>**: Markdown is simple, even non-technical people can edit Knowledge Pods, so everyone can do their job: graphics can work on the themes, instructors can write the contents and you, the **KPA master ©**, will put everything together.
 
-## How to create a KPA project
+## Create a KPA project
 
 After cloning this repository you'll see a `projects` directory, meant to contain all your KPA projects. You can use `example` project as your starting point.
 
@@ -57,10 +57,10 @@ projects/example/
 │   ├── cover-background.png
 │   ├── logo.png
 │   └── slide-background.png
+├── slides-settings.yml
 ├── templates
 │   ├── chapter.md.j2
 │   └── cover.md.j2
-├── slides-settings.yml
 ├── contents
 │   ├── Topic-1.md
 │   ├── ...
@@ -74,20 +74,6 @@ Where:
 
 - [images](projects/example/images/) contains backgrounds, logos and all the useful graphics elements for the slides.
 
-- [templates](projects/example/templates/) contains the templates for the special slides that will be processed by Ansible. These templates will parse the variables, to be reusable. For example, the [chapter.md.j2](projects/example/templates/chapter.md.j2) contains the layout for the slide that will be shown at the beginning of each KP/Chapter:
-  
-  ```markdown
-  ---
-  
-  <!-- _backgroundImage: url({{ marp_chapter_backgroundImage }}) -->
-  
-  # <span class="txt-yellow">{{ slide.title }}</span>
-  
-  <span class="txt-yellow">{{ slide.chapter }}</span>
-  ```
-  
-  The variables used in this file can be declared globally (like `marp_chapter_backgroundImage`, see [slides-settings.yml](projects/example/slides-settings.yml)) or specifically (like `slide.title`, see [Example-Training-01.yml](projects/example/Example-Training-01.yml)).
-
 - [slides-settings.yml](projects/example/slides-settings.yml) contains the general presentation parameters that will override role's defaults:
   
   ```yaml
@@ -96,8 +82,8 @@ Where:
   kpa_project_dir: 'projects/example'
   
   marp_theme: example
-  marp_backgroundColor: #ffffff
-  marp_backgroundImage: "{{ kpa_project_dir }}/images/slide-background.png"
+  marp_background_color: #ffffff
+  marp_background_image: "{{ kpa_project_dir }}/images/slide-background.png"
   marp_author: 'Raoul Scarazzini'
   marp_copyright: '© 2023 MiaMammaUsaLinux.org'
   marp_paginate: true
@@ -105,11 +91,25 @@ Where:
   marp_cover_template: "{{ kpa_project_dir }}/templates/cover.md.j2"
   marp_cover_image: "{{ kpa_project_dir }}/images/cover-image.png"
   marp_cover_logo: "{{ kpa_project_dir }}/images/logo.png"
-  marp_cover_backgroundImage: "{{ kpa_project_dir }}/images/cover-background.png"
+  marp_cover_background_image: "{{ kpa_project_dir }}/images/cover-background.png"
   
   marp_chapter_template: "{{ kpa_project_dir }}/templates/chapter.md.j2"
-  marp_chapter_backgroundImage: "{{ kpa_project_dir }}/images/chapter-background.png"
+  marp_chapter_background_image: "{{ kpa_project_dir }}/images/chapter-background.png"
   ```
+
+- [templates](projects/example/templates/) contains the templates for the special slides that will be processed by Ansible. These templates will parse the variables, to be reusable. For example, the [chapter.md.j2](projects/example/templates/chapter.md.j2) contains the layout for the slide that will be shown at the beginning of each KP/Chapter:
+  
+  ```markdown
+  ---
+  
+  <!-- _backgroundImage: url({{ marp_chapter_background_image }}) -->
+  
+  # <span class="txt-yellow">{{ slide.title }}</span>
+  
+  <span class="txt-yellow">{{ slide.chapter }}</span>
+  ```
+  
+  The variables used in this file can be declared globally (like `marp_chapter_backgroundImage`, see [slides-settings.yml](projects/example/slides-settings.yml)) or specifically (like `slide.title`, see [Example-Training-01.yml](projects/example/Example-Training-01.yml)).
 
 - [contents](projects/example/contents/) contains the **Knowledge Pods** in the [Marp Markdown compatible format](https://marpit.marp.app/markdown) (The main rule: `---` is the beginning of a new slide).
 
@@ -155,15 +155,26 @@ Where:
       content: "{{ kpa_project_dir }}/contents/Topic-18.md"
   ```
 
-## How to create the Marp Markdown file with `marp-slides-creator.yml`
+## Create the Marp Markdown file with `kpa_marp_slides_generator.yml`
 
-Once everything is in place it is time to execute, via `ansible-playbook` command the Ansible playbook named `marp-slides-creator.yml`, passing the **KPA Project** variables related to the general slides settings (`-e @example/slides-settings.yml`) and to the specific training (`-e @example/Example-Training-01.yml`) :
+To start using the `kpa_marp_slides_generator` Ansible role you first need to install it, you can use `ansible-galaxy`:
+
+```bash
+> ansible-galaxy install -r roles/requirements.yml --roles-path ./roles
+Starting galaxy role install process
+- downloading role 'kpa_marp_slides_generator', owned by mmul
+- downloading role from https://github.com/mmul-it/kpa_marp_slides_generator/archive/main.tar.gz
+- extracting mmul.kpa_marp_slides_generator to /home/rasca/Git/mmul-it/kpa/roles/mmul.kpa_marp_slides_generator
+- mmul.kpa_marp_slides_generator (main) was installed successfully
+```
+
+Then it's time to to execute, via `ansible-playbook` command the Ansible playbook named `kpa_marp_slides_generator.yml`, passing the **KPA Project** variables related to the general slides settings (`-e @projects/example/slides-settings.yml`) and to the specific training (`-e @projects/example/Example-Training-01.yml`) :
 
 ```bash
 > ansible-playbook \
     -e @projects/example/slides-settings.yml \
     -e @projects/example/Example-Training-01.yml \
-    marp-slides-creator.yml
+    kpa_marp_slides_generator.yml
 [WARNING]: No inventory was parsed, only implicit localhost is available
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
@@ -176,9 +187,9 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-This command will generate a file named `slides.md` in the `slides` directory, as declared in the `marp_output_file` variable (see [roles/marp-slides-creator/defaults/main.yml](roles/marp-slides-creator/defaults/main.yml)).
+This command will generate a file named `slides.md` in the `slides` directory, as declared in the `marp_output_file` variable (see [projects/example/slides-settings.yml](projects/example/slides-settings.yml)).
 
-## How to create the presentation from the Marp Markdown file
+## Create the presentation from the Marp Markdown file
 
 To get a presentation with the Markdown file generated by the `marp-slides-creator` Ansible role you can use the [Marp container](https://hub.docker.com/r/marpteam/marp-cli), like this:
 
@@ -190,7 +201,7 @@ To get a presentation with the Markdown file generated by the `marp-slides-creat
     -v $PWD:/home/marp/app/ \
     marpteam/marp-cli \
       --html true \
-      --theme ./example/theme.css \
+      --theme ./projects/example/theme.css \
       slides/slides.md 
 [  INFO ] Converting 1 markdown...
 [  INFO ] slides/slides.md => slides/slides.html
@@ -211,7 +222,7 @@ The `marp-cli` execution should produce these set of slides:
 - Slide:
   ![](images/slide.png)
 
-**Important note about exporting into `html`**: the destination directory of your file should contain the images, css and so on since it will process them "live", this is why you will find a symbolic link pointing to your KPA projects directory inside the `slides` output directory:
+**Important note about exporting into `html`**: the destination directory of your file should contain the images, `.css` and so on since it will process them "live", this is why you will find a symbolic link pointing to your KPA projects directory inside the `slides` output directory:
 
 ```console
 > ls -la slides/
