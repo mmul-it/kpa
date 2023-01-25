@@ -1,6 +1,6 @@
 ---
 
-kpa_project_dir: "{{ lookup('env', 'PWD') }}/projects/example"
+kpa_project_dir: "projects/example"
 
 marp_theme: example
 marp_background_color: #ffffff
