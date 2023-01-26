@@ -45,24 +45,40 @@ There are several benefits using KPA:
 
 ## Create a KPA project
 
-After cloning this repository you'll see a `projects` directory, meant to contain all your KPA projects. You can use `example` project as your starting point.
+After cloning this repository:
+
+```bash
+> git clone https://github.com/mmul-it/kpa.git
+Cloning into 'kpa'...
+remote: Enumerating objects: 125, done.
+remote: Counting objects: 100% (125/125), done.
+remote: Compressing objects: 100% (59/59), done.
+remote: Total 125 (delta 51), reused 114 (delta 43), pack-reused 0
+Receiving objects: 100% (125/125), 3.88 MiB | 3.38 MiB/s, done.
+Resolving deltas: 100% (51/51), done.
+
+> cd kpa
+```
+
+You'll see a `projects` directory, meant to contain all your KPA projects. You can use `example` project as your starting point.
 
 This is the structure of a **KPA project**:
 
 ```console
 projects/example/
-├── theme.css
+├── common
+│   ├── slides-settings.yml
+│   └── theme.css
 ├── images
 │   ├── chapter-background.png
 │   ├── cover-background.png
 │   ├── logo.png
 │   └── slide-background.png
-├── slides-settings.yml
 ├── templates
 │   ├── chapter.md.j2
 │   └── cover.md.j2
 ├── contents
-│   ├── Topic-1.md
+│   ├── Topic-10.md
 │   ├── ...
 │   └── Topic-18.md
 └── Example-Training-01.yml
@@ -70,32 +86,34 @@ projects/example/
 
 Where:
 
-- [theme.css](example/theme.css) is the css theme file that overrides Marp's default theme. This is not needed, you can use a [predefined Marp theme]([marp-core/themes at main · marp-team/marp-core · GitHub](https://github.com/marp-team/marp-core/tree/main/themes)).
+- [common](projects/example/common): is the home for shared training/presentation files:
+  
+  - [theme.css](projects/example/common/theme.css) is the css theme file that overrides Marp's default theme. This is not needed, you can use a [predefined Marp theme]([marp-core/themes at main · marp-team/marp-core · GitHub](https://github.com/marp-team/marp-core/tree/main/themes)).
+  
+  - [slides-settings.yml](projects/example/common/slides-settings.yml) contains the general presentation parameters that will override role's defaults:
+    
+    ```yaml
+    ---
+    
+    kpa_project_dir: 'projects/example'
+    
+    marp_theme: example
+    marp_background_color: #ffffff
+    marp_background_image: "{{ kpa_project_dir }}/images/slide-background.png"
+    marp_author: 'Raoul Scarazzini'
+    marp_copyright: '© 2023 MiaMammaUsaLinux.org'
+    marp_paginate: true
+    
+    marp_cover_template: "{{ kpa_project_dir }}/templates/cover.md.j2"
+    marp_cover_image: "{{ kpa_project_dir }}/images/cover-image.png"
+    marp_cover_logo: "{{ kpa_project_dir }}/images/logo.png"
+    marp_cover_background_image: "{{ kpa_project_dir }}/images/cover-background.png"
+    
+    marp_chapter_template: "{{ kpa_project_dir }}/templates/chapter.md.j2"
+    marp_chapter_background_image: "{{ kpa_project_dir }}/images/chapter-background.png"
+    ```
 
 - [images](projects/example/images/) contains backgrounds, logos and all the useful graphics elements for the slides.
-
-- [slides-settings.yml](projects/example/slides-settings.yml) contains the general presentation parameters that will override role's defaults:
-  
-  ```yaml
-  ---
-  
-  kpa_project_dir: 'projects/example'
-  
-  marp_theme: example
-  marp_background_color: #ffffff
-  marp_background_image: "{{ kpa_project_dir }}/images/slide-background.png"
-  marp_author: 'Raoul Scarazzini'
-  marp_copyright: '© 2023 MiaMammaUsaLinux.org'
-  marp_paginate: true
-  
-  marp_cover_template: "{{ kpa_project_dir }}/templates/cover.md.j2"
-  marp_cover_image: "{{ kpa_project_dir }}/images/cover-image.png"
-  marp_cover_logo: "{{ kpa_project_dir }}/images/logo.png"
-  marp_cover_background_image: "{{ kpa_project_dir }}/images/cover-background.png"
-  
-  marp_chapter_template: "{{ kpa_project_dir }}/templates/chapter.md.j2"
-  marp_chapter_background_image: "{{ kpa_project_dir }}/images/chapter-background.png"
-  ```
 
 - [templates](projects/example/templates/) contains the templates for the special slides that will be processed by Ansible. These templates will parse the variables, to be reusable. For example, the [chapter.md.j2](projects/example/templates/chapter.md.j2) contains the layout for the slide that will be shown at the beginning of each KP/Chapter:
   
@@ -119,6 +137,10 @@ Where:
   ---
   marp_title: "My spectacular course"
   
+  marp_output_file: "slides/Example-Training-01.md"
+  
+  kpa_contents: "{{ kpa_project_dir }}/contents"
+  
   marp_slides:
     # DAY 1
     - cover: true
@@ -126,10 +148,10 @@ Where:
       subtitle: "DAY ONE"
     - chapter: 'DAY ONE - PART ONE'
       title: 'Topic 1'
-      content: "{{ kpa_project_dir }}/contents/Topic-1.md"
+      content: "{{ kpa_contents }}/Topic-1.md"
     - chapter: 'DAY ONE - PART TWO'
       title: 'Topic 2'
-      content: "{{ kpa_project_dir }}/contents/Topic-2.md"
+      content: "{{ kpa_contents }}/Topic-2.md"
       ...
       ...
     # Day 2
@@ -138,7 +160,7 @@ Where:
       subtitle: "DAY TWO"
     - chapter: 'DAY TWO - PART SEVEN'
       title: 'Topic 7'
-      content: "{{ kpa_project_dir }}/contents/Topic-7.md"
+      content: "{{ kpa_contents }}/Topic-7.md"
       ...
       ...
     # Day 3
@@ -147,12 +169,12 @@ Where:
       subtitle: "DAY THREE"
     - chapter: 'DAY THREE - PART THIRTEEN'
       title: 'Topic 13'
-      content: "{{ kpa_project_dir }}/contents/Topic-13.md"
+      content: "{{ kpa_contents }}/Topic-13.md"
       ...
       ...
     - chapter: 'DAY THREE - PART EIGHTEEN'
       title: 'Topic 18'
-      content: "{{ kpa_project_dir }}/contents/Topic-18.md"
+      content: "{{ kpa_contents }}/Topic-18.md"
   ```
 
 ## Create the Marp Markdown file with `kpa_marp_slides_generator.yml`
@@ -160,7 +182,9 @@ Where:
 To start using the `kpa_marp_slides_generator` Ansible role you first need to install it, you can use `ansible-galaxy`:
 
 ```bash
-> ansible-galaxy install -r roles/requirements.yml --roles-path ./roles
+> ansible-galaxy install \
+    -r playbooks/roles/requirements.yml \
+    --roles-path ./playbooks/roles
 Starting galaxy role install process
 - downloading role 'kpa_marp_slides_generator', owned by mmul
 - downloading role from https://github.com/mmul-it/kpa_marp_slides_generator/archive/main.tar.gz
@@ -168,13 +192,13 @@ Starting galaxy role install process
 - mmul.kpa_marp_slides_generator (main) was installed successfully
 ```
 
-Then it's time to to execute, via `ansible-playbook` command the Ansible playbook named `kpa_marp_slides_generator.yml`, passing the **KPA Project** variables related to the general slides settings (`-e @projects/example/slides-settings.yml`) and to the specific training (`-e @projects/example/Example-Training-01.yml`) :
+Then it's time to to execute, via `ansible-playbook` command the Ansible playbook named `kpa_marp_slides_generator.yml` under the `playbooks` folder, passing the **KPA Project** variables related to the common slides settings (`-e @projects/example/common/slides-settings.yml`) and to the specific training (`-e @projects/example/Example-Training-01.yml`) :
 
 ```bash
 > ansible-playbook \
-    -e @projects/example/slides-settings.yml \
+    -e @projects/example/common/slides-settings.yml \
     -e @projects/example/Example-Training-01.yml \
-    kpa_marp_slides_generator.yml
+    playbooks/kpa_marp_slides_generator.yml
 [WARNING]: No inventory was parsed, only implicit localhost is available
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
@@ -201,7 +225,7 @@ To get a presentation with the Markdown file generated by the `marp-slides-creat
     -v $PWD:/home/marp/app/ \
     marpteam/marp-cli \
       --html true \
-      --theme ./projects/example/theme.css \
+      --theme ./projects/example/common/theme.css \
       slides/slides.md 
 [  INFO ] Converting 1 markdown...
 [  INFO ] slides/slides.md => slides/slides.html
@@ -224,7 +248,7 @@ The `marp-cli` execution should produce these set of slides:
 
 **Important note about exporting into `html`**: the destination directory of your file should contain the images, `.css` and so on since it will process them "live", this is why you will find a symbolic link pointing to your KPA projects directory inside the `slides` output directory:
 
-```console
+```bash
 > ls -la slides/
 total 3196
 drwxrwxr-x 2 rasca rasca    4096 gen 17 18:37 .
@@ -260,6 +284,7 @@ The theme can be integrated with the various tools available for Marp:
     -e LANG=$LANG \
     -e MARP_USER=$(id -u):$(id -g) \
     -v $PWD:/home/marp/app/ \
+    -v $PWD:$PWD \
     marpteam/marp-cli \
       --html true \
       --theme ./projects/example/theme.css \

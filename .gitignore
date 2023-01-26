@@ -1,5 +1,5 @@
-roles/*
-!roles/requirements.yml
+playbooks/roles/*
+!playbooks/roles/requirements.yml
 projects/*
 !projects/example
 slides/*

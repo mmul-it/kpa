@@ -2,7 +2,9 @@
 
 marp_title: "My spectacular training"
 
-marp_output_file: "{{ lookup('env', 'PWD') }}/slides/Example-Training-01.md"
+marp_output_file: "{{ lookup('ansible.builtin.env', 'PWD') }}/slides/Example-Training-01.md"
+
+kpa_contents: "{{ kpa_project_dir }}/contents"
 
 marp_slides:
   # DAY 1
@@ -11,63 +13,63 @@ marp_slides:
     subtitle: "DAY ONE"
   - chapter: 'DAY ONE - PART ONE'
     title: 'Topic 1'
-    content: "{{ kpa_project_dir }}/contents/Topic-1.md"
+    content: "{{ kpa_contents }}/Topic-1.md"
   - chapter: 'DAY ONE - PART TWO'
     title: 'Topic 2'
-    content: "{{ kpa_project_dir }}/contents/Topic-2.md"
+    content: "{{ kpa_contents }}/Topic-2.md"
   - chapter: 'DAY ONE - PART THREE'
     title: 'Topic 3'
-    content: "{{ kpa_project_dir }}/contents/Topic-3.md"
+    content: "{{ kpa_contents }}/Topic-3.md"
   - chapter: 'DAY ONE - PART FOUR'
     title: 'Topic 4'
-    content: "{{ kpa_project_dir }}/contents/Topic-4.md"
+    content: "{{ kpa_contents }}/Topic-4.md"
   - chapter: 'DAY ONE - PART FIVE'
     title: 'Topic 5'
-    content: "{{ kpa_project_dir }}/contents/Topic-5.md"
+    content: "{{ kpa_contents }}/Topic-5.md"
   - chapter: 'DAY ONE - PART SIX'
     title: 'Topic 6'
-    content: "{{ kpa_project_dir }}/contents/Topic-6.md"
+    content: "{{ kpa_contents }}/Topic-6.md"
   # Day 2
   - cover: true
     title: "{{ marp_title }}"
     subtitle: "DAY TWO"
   - chapter: 'DAY TWO - PART SEVEN'
     title: 'Topic 7'
-    content: "{{ kpa_project_dir }}/contents/Topic-7.md"
+    content: "{{ kpa_contents }}/Topic-7.md"
   - chapter: 'DAY TWO - PART EIGHT'
     title: 'Topic 8'
-    content: "{{ kpa_project_dir }}/contents/Topic-8.md"
+    content: "{{ kpa_contents }}/Topic-8.md"
   - chapter: 'DAY TWO - PART NINE'
     title: 'Topic 9'
-    content: "{{ kpa_project_dir }}/contents/Topic-9.md"
+    content: "{{ kpa_contents }}/Topic-9.md"
   - chapter: 'DAY TWO - PART TEN'
     title: 'Topic 10'
-    content: "{{ kpa_project_dir }}/contents/Topic-10.md"
+    content: "{{ kpa_contents }}/Topic-10.md"
   - chapter: 'DAY TWO - PART ELEVEN'
     title: 'Topic 11'
-    content: "{{ kpa_project_dir }}/contents/Topic-11.md"
+    content: "{{ kpa_contents }}/Topic-11.md"
   - chapter: 'DAY TWO - PART TWELVE'
     title: 'Topic 12'
-    content: "{{ kpa_project_dir }}/contents/Topic-12.md"
+    content: "{{ kpa_contents }}/Topic-12.md"
   # Day 3
   - cover: true
     title: "{{ marp_title }}"
     subtitle: "DAY THREE"
   - chapter: 'DAY THREE - PART THIRTEEN'
     title: 'Topic 13'
-    content: "{{ kpa_project_dir }}/contents/Topic-13.md"
+    content: "{{ kpa_contents }}/Topic-13.md"
   - chapter: 'DAY THREE - PART FOURTEEN'
     title: 'Topic 14'
-    content: "{{ kpa_project_dir }}/contents/Topic-14.md"
+    content: "{{ kpa_contents }}/Topic-14.md"
   - chapter: 'DAY THREE - PART FIFTEEN'
     title: 'Topic 15'
-    content: "{{ kpa_project_dir }}/contents/Topic-15.md"
+    content: "{{ kpa_contents }}/Topic-15.md"
   - chapter: 'DAY THREE - PART SIXSTEEN'
     title: 'Topic 16'
-    content: "{{ kpa_project_dir }}/contents/Topic-16.md"
+    content: "{{ kpa_contents }}/Topic-16.md"
   - chapter: 'DAY THREE - PART SEVENTEEN'
     title: 'Topic 17'
-    content: "{{ kpa_project_dir }}/contents/Topic-17.md"
+    content: "{{ kpa_contents }}/Topic-17.md"
   - chapter: 'DAY THREE - PART EIGHTEEN'
     title: 'Topic 18'
-    content: "{{ kpa_project_dir }}/contents/Topic-18.md"
+    content: "{{ kpa_contents }}/Topic-18.md"
