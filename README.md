@@ -30,18 +30,18 @@ Each section of a **Knowledge Pod**, say a paragraph, is separated from the othe
 
 There are several benefits using KPA:
 
-- **Concentrate <u>just</u> on the contents**: once you have defined your project, you don't need to care about anything but writing Knowledge Pods. No no need to manually syntax highlight your code blocks, no need to adapt text, no need to duplicate your slide to modify just a simple sentence.
-  Just write your Knowledge Pods in Markdown, and you're good to go.
+- **Concentrate <u>just</u> on the contents**: once you have defined your project, you don't need to care about anything but writing Knowledge Pods. No need to manually syntax highlight your code blocks, no need to adapt text, no need to duplicate your slide to modify just a simple sentence.
+  Just write your Knowledge Pods in Markdown and you're good to go.
 
 - **Compose training and presentations <u>dynamically</u>**: no more Power Point slides cut and paste. You can combine your Knowledge Pods in the way that fits your needs, creating as many variants of your training and presentations as you need.
 
 - **Have the same look & feel for <u>every</u> training or presentation**: no more "*Ok, now you need to apply this new slide format to all our 100 presentations*". You will define your project look & feel one time and it will be applied everywhere, always the same way.
 
-- **Use a <u>standard</u> and <u>reusable</u> format**: the same documentation you will produce with KPA could be used wherever you want, it's Markdown, it's a standard, you will be able to write your own tool to manage your **Knowledge Pods**.
+- **Use a <u>standard</u> and <u>reusable</u> format**: the same documentation you will produce with KPA could be used wherever you want because it's Markdown, which is a standard, and you will be able to write your own tool to manage your **Knowledge Pods**.
 
-- **Keep everything versioned and <u>in order</u>**: once you'll store your KPA projects in a Git repository you'll get versioning, monitor of the changes and your entire knowledge in one traceable place.
+- **Keep everything versioned and <u>in order</u>**: once you'll store your KPA projects in a Git repository, you'll get versioning, monitoring of the changes and your entire knowledge in one traceable place.
 
-- **Let everyone <u>do their job</u>**: Markdown is simple, even non-technical people can edit Knowledge Pods, so everyone can do their job: graphics can work on the themes, instructors can write the contents and you, the **KPA master ©**, will put everything together.
+- **Let everyone <u>do their job</u>**: Markdown is simple to the point that even non-technical people can edit Knowledge Pods and this allows for everyone to do their job: graphics can work on the themes, instructors can write the contents and you, the **KPA master ©**, will put everything together.
 
 ## Create a KPA project
 
@@ -60,7 +60,7 @@ Resolving deltas: 100% (51/51), done.
 > cd kpa
 ```
 
-You'll see a `projects` directory, meant to contain all your KPA projects. You can use `example` project as your starting point.
+You'll see a `projects` directory, which is meant to contain all your KPA projects. You can use `example` project as your starting point.
 
 This is the structure of a **KPA project**:
 
@@ -179,7 +179,7 @@ Where:
 
 ## Create the Marp Markdown file with `kpa_marp_slides_generator.yml`
 
-To start using the `kpa_marp_slides_generator` Ansible role you first need to install it, you can use `ansible-galaxy`:
+To start using the `kpa_marp_slides_generator` Ansible role you first need to install it. For this purpose, you can use `ansible-galaxy`:
 
 ```bash
 > ansible-galaxy install \
@@ -192,7 +192,7 @@ Starting galaxy role install process
 - mmul.kpa_marp_slides_generator (main) was installed successfully
 ```
 
-Then it's time to to execute, via `ansible-playbook` command the Ansible playbook named `kpa_marp_slides_generator.yml` under the `playbooks` folder, passing the **KPA Project** variables related to the common slides settings (`-e @projects/example/common/slides-settings.yml`) and to the specific training (`-e @projects/example/Example-Training-01.yml`) :
+It's then time to execute, via `ansible-playbook` command, the Ansible playbook named `kpa_marp_slides_generator.yml` under the `playbooks` folder, passing the **KPA Project** variables related to the common slides settings (`-e @projects/example/common/slides-settings.yml`) and to the specific training (`-e @projects/example/Example-Training-01.yml`) :
 
 ```bash
 > ansible-playbook \
@@ -211,13 +211,13 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-This command will generate a file named `slides.md` in the `slides` directory, as declared in the `marp_output_file` variable (see [projects/example/slides-settings.yml](projects/example/slides-settings.yml)).
+This command will then generate a file named `slides.md` in the `slides` directory, as declared in the `marp_output_file` variable (see [projects/example/slides-settings.yml](projects/example/slides-settings.yml)).
 
 ### About executing the `kpa_marp_slides_generator.yml` Ansible playbook
 
-The `kpa_marp_slides_generator.yml` Ansible playbook lives inside the `playbooks` folder, and since this will be its working directory it will need access to both `projects` and `slides` folder.
+The `kpa_marp_slides_generator.yml` Ansible playbook lives inside the `playbooks` folder. 
 
-This is why you will find two symbolic links pointing to your KPA projects directory and slides output directory:
+Since this will be its working directory it will need access to both `projects` and `slides` folder and this is the reason you will find two symbolic links pointing to your KPA projects directory and slides output directory:
 
 ```bash
 > ls -la playbooks/
@@ -250,7 +250,7 @@ To get a presentation with the Markdown file generated by the `marp-slides-creat
 [  INFO ] slides/slides.md => slides/slides.html
 ```
 
-`Marp` supports exporting in `pdf`, `html` and `ppt`, you might want to remember the `--allow-local-files` when exporting into static files like `pdf` and `ppt`.
+`Marp` supports exporting in `pdf`, `html` and `ppt`. You might want to remember the `--allow-local-files` when exporting into static files like `pdf` and `ppt`.
 
 ### Results
 
@@ -267,7 +267,7 @@ The `marp-cli` execution should produce these set of slides:
 
 ### About exporting with `marp-cli`
 
-When exporting the destination directory of your file should contain the images, `.css` files and so on, since it will process them "live", this is why you will find a symbolic link pointing to your KPA projects directory inside the `slides` output directory:
+When exporting, the destination directory of your file should contain the images, `.css` files and so on, since it will process them "live". For this reason, you will find a symbolic link pointing to your KPA projects directory inside the `slides` output directory:
 
 ```bash
 > ls -la slides/
@@ -284,7 +284,7 @@ If you want to change the destination of your `.html` slides, remember that you 
 
 ### Themes
 
-For the Example training a custom css (check [projects/example/theme.css](projects/example/theme.css)) has been created to give a sample on how the look & feel might be changed.
+For the Example training, a custom css (check [projects/example/theme.css](projects/example/theme.css)) has been created to give a sample on how the look & feel might be changed.
 
 The theme can be integrated with the various tools available for Marp:
 
