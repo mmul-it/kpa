@@ -1,5 +1,7 @@
 # KPA - The Knowledge Pods Approach
 
+[![Docker Repository on Quay](https://quay.io/repository/mmul/kpa/status "Docker Repository on Quay")](https://quay.io/repository/mmul/kpa)
+
 This repository defines the **Knowledge Pods Approach** (**KPA**), an agile way to create, maintain and evolve training materials and presentations using standard [Markdown](https://en.wikipedia.org/wiki/Markdown) files to create beautiful slide sets.
 
 ## What is a KPA project?
