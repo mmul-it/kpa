@@ -4,7 +4,7 @@ FROM quay.io/ansible/ansible-core
 WORKDIR /kpa
 
 # YAMLLINT
-RUN pip3 install yamllint
+RUN pip3 install yamllint ansible-lint
 
 # KPA
 RUN git clone https://github.com/mmul-it/kpa .
