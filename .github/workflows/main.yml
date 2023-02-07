@@ -1,0 +1,73 @@
+name: Create PDFs for example project
+
+env:
+  KPA_PROJECT: example
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    container:
+      image: quay.io/mmul/kpa
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Ansible requirements
+        run: ansible-galaxy install
+               -r playbooks/roles/requirements.yml
+               --roles-path ./playbooks/roles
+      - name: Check Ansible Playbook Linter
+        run: ansible-lint playbooks/*.yml
+      - name: Check project yamls
+        run: yamllint -s projects/${KPA_PROJECT}/*.yml
+
+  markdown:
+    runs-on: ubuntu-latest
+    container:
+      image: quay.io/mmul/kpa
+    needs: lint
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Ansible requirements
+        run: ansible-galaxy install
+               -r playbooks/roles/requirements.yml
+               --roles-path ./playbooks/roles
+      - name: Generate markdown files
+        run: for TRAINING in $(ls projects/${KPA_PROJECT}/*.yml); do
+               echo "Processing ${TRAINING}";
+               ansible-playbook
+                 -e @projects/${KPA_PROJECT}/common/slides-settings.yml
+                 -e @${TRAINING}
+                 playbooks/kpa_marp_slides_generator.yml;
+             done
+      - name: Upload markdown files
+        uses: actions/upload-artifact@v3
+        with:
+          name: markdowns
+          path: slides/**.md
+
+  marp-pdf:
+    runs-on: ubuntu-latest
+    container:
+      image: quay.io/mmul/kpa
+    needs: markdown
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Download markdown files
+        uses: actions/download-artifact@v3
+        with:
+          name: markdowns
+          path: slides/
+      - name: Generate Marp pdf files
+        run: for TRAINING in $(ls slides/*.md); do
+               echo "Processing ${TRAINING}";
+               marp --theme projects/${KPA_PROJECT}/common/theme.css --html --pdf --allow-local-files ${TRAINING};
+             done
+      - name: Upload Marp pdf files
+        uses: actions/upload-artifact@v3
+        with:
+          name: pdfs
+          path: slides/**.pdf
