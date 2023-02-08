@@ -38,6 +38,8 @@ jobs:
         run: ln -vs ${GITHUB_WORKSPACE} /kpa/projects/${KPA_PROJECT}
       - name: Check project yamls
         run: yamllint -s projects/${KPA_PROJECT}/*.yml
+      - name: Check markdown files for example project                          
+        run: mdl projects/${KPA_PROJECT}/contents/*.md
 
   markdown:
     runs-on: ubuntu-latest
@@ -132,6 +134,8 @@ lint:
   script:
     # YAML check
     - yamllint -s *.yml
+    # Markdown check
+    - mdl contents/*.md
 
 markdown:
   stage: markdown
