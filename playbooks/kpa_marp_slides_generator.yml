@@ -1,8 +1,10 @@
 ---
 
-- hosts: localhost
+- name: KPA project markdown files generation
+  hosts: localhost
   connection: local
   gather_facts: false
   tasks:
-    - import_role:
+    - name: Import KPA Marp slides generator role
+      ansible.builtin.import_role:
         name: mmul.kpa_marp_slides_generator

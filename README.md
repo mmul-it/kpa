@@ -1,4 +1,4 @@
-# KPA - The Knowledge Pods Approach
+# <img src="images/kpa-logo.png" title="KPA - The Knowledge Pods Approach" alt="KPA logo" width="25"> KPA - The Knowledge Pods Approach
 
 [![Docker Repository on Quay](https://quay.io/repository/mmul/kpa/status "Docker Repository on Quay")](https://quay.io/repository/mmul/kpa)
 
@@ -319,73 +319,6 @@ The theme can be integrated with the various tools available for Marp:
   [  INFO ] slides/Example-Training-01.md => slides/Example-Training-01.pdf
   ```
 
-### Using KPA with the GitLab CI
+## Using KPA in CI
 
-A container named [kpa is available at quay.io](https://quay.io/repository/mmul/), complete of this repository, the `kpa_marp_slides_generator` Ansible role and Marp itself.
-
-This container is meant to be used in CI environments, to automate slides generation.
-
-This is a practical example about how to use this container in GitLab CI, by defining a `.gitlab-ci.yml` yaml file:
-
-```yaml
-image: quay.io/mmul/kpa
-
-variables:
-  KPA_PROJECT: example
-
-stages:
-  - lint
-  - markdown
-  - marp-pdf
-
-lint:
-  stage: lint
-  script:
-    # YAML check
-    - yamllint -s *.yml
-
-markdown:
-  stage: markdown
-  # Save generated markdown files
-  artifacts:
-    paths:
-      - slides/*.md
-  script:
-    # Create symlink in the /kpa/projects dir pointing to project dir
-    - ln -vs ${CI_PROJECT_DIR} /kpa/projects/${KPA_PROJECT}
-    - cd /kpa
-    # Generate Marp Markdown files
-    - for TRAINING in $(ls projects/${KPA_PROJECT}); do
-        echo "Processing $TRAINING";
-        ansible-playbook
-          -e @projects/${KPA_PROJECT}/common/slides-settings.yml
-          -e @projects/${KPA_PROJECT}/$TRAINING
-          playbooks/kpa_marp_slides_generator.yml;
-      done
-    # Move slides folder into project dir (symlink won't work)
-    - mv /kpa/slides ${CI_PROJECT_DIR}/slides
-
-marp-pdf:
-  stage: marp-pdf
-  # Depend from slides generated in the previous stage
-  dependencies:
-   -  markdown
-  # Save generated pdf files
-  artifacts:
-    paths:
-      - slides/*.pdf
-  before_script:
-    # Create projects directory under slides
-    - mkdir slides/projects
-    # Create a symlink pointing to the project dir under slides/projects
-    - ln -vs ${CI_PROJECT_DIR} slides/projects/${KPA_PROJECT}
-  script:
-    # Generate pdf files using marp
-    - for TRAINING in $(ls slides/*.md); do
-        echo "Processing $TRAINING";
-        marp --theme common/theme.css --html --pdf --allow-local-files $TRAINING;
-      done
-
-```
-
-This file will be placed into your project's GitLab repository and, for every push, will look for every yaml training/content file definition and process it into a pdf file under the `slides` directory, making those files available as job's artifacts.
+Check the [Using KPA in CI](CI.md) doc to understand how to use KPA in both GitHub and GitLab CI.
