@@ -17,7 +17,8 @@ RUN curl -sL https://rpm.nodesource.com/setup_14.x | bash -
 RUN dnf -y --enablerepo epel install chromium nodejs
 RUN npm install -g @marp-team/marp-cli
 
-# Install KPA repository
+# Install KPA repository (busting the cache)
+ARG CACHEBUST=1
 RUN git clone https://github.com/mmul-it/kpa .
 RUN ansible-galaxy install \
       -r playbooks/roles/requirements.yml \
