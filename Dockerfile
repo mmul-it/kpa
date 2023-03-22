@@ -18,7 +18,7 @@ RUN dnf -y --enablerepo epel install chromium nodejs
 RUN npm install -g @marp-team/marp-cli
 
 # Install KPA repository (busting the cache)
-ARG CACHEBUST=$(date +%s)
+RUN echo $(date +%s) > /tmp/bustcache
 RUN git clone https://github.com/mmul-it/kpa .
 RUN ansible-galaxy install \
       -r playbooks/roles/requirements.yml \
