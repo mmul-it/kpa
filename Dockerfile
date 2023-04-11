@@ -23,6 +23,9 @@ RUN curl -sL https://rpm.nodesource.com/setup_14.x | bash -
 RUN dnf -y --enablerepo epel install chromium nodejs
 RUN npm install -g @marp-team/marp-cli
 
+# Install pandoc with texlive
+RUN dnf -y install pandoc texlive texlive-*
+
 # Install KPA repository
 RUN git clone https://github.com/mmul-it/kpa .
 RUN ansible-galaxy install \
