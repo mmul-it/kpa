@@ -1,0 +1,73 @@
+\documentclass{article}
+
+% Example page size and margins
+\usepackage[a4paper,left=60px,right=60px,top=60px,bottom=60px]{geometry}
+
+% Example fix spaces between lines
+\setlength{\emergencystretch}{48px} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0px}\setlength{\parskip}{0px}}
+
+% Example manage section numbering
+$if(numbersections)$
+\setcounter{secnumdepth}{$if(secnumdepth)$$secnumdepth$$else$5$endif$}
+$else$
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+$endif$
+
+% Example pdf metadata
+\usepackage{hyperref}
+\hypersetup{
+  pdftitle={$title-meta$},
+  pdfauthor={$author-meta$},
+  pdfcreator={LaTeX via pandoc using Example template}
+}
+
+% Example pagestyle
+\usepackage{fancyhdr}
+% Set fancy as pagestyle
+\pagestyle{fancy}
+% Make title page the same as the other
+\fancypagestyle{plain}{}
+% Empty header/footer contents
+\fancyhf{}
+% Remove header/footer separator line
+\renewcommand{\headrulewidth}{0pt}
+% Add pagenumbers at the lower right for all pages
+\usepackage{lastpage}
+\fancyfoot[R]{\thepage / \pageref{LastPage}}
+
+% Example colors
+\usepackage{xcolor}
+\definecolor{examplecolor}{RGB}{33, 35, 56}
+\color{examplecolor}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+% Example background
+\usepackage{background}
+\backgroundsetup{
+ scale=1,
+ opacity=1,
+ angle=0,
+ pages=all,
+ contents={
+   \includegraphics[width=\paperwidth,height=\paperheight]{$background-image$}
+ }
+}
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+\title{$title$}
+\author{$for(author)$$author$$sep$ \and $endfor$}
+\date{$date$}
+
+\begin{document}
+
+\maketitle
+
+$body$
+
+\end{document}

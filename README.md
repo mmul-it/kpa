@@ -90,28 +90,28 @@ projects/example/
 Where:
 
 - [common](projects/example/common): is the home for shared training/presentation files:
-  
+
   - [theme.css](projects/example/common/theme.css) is the css theme file that overrides Marp's default theme. This is not needed, you can use a [predefined Marp theme]([marp-core/themes at main · marp-team/marp-core · GitHub](https://github.com/marp-team/marp-core/tree/main/themes)).
-  
+
   - [slides-settings.yml](projects/example/common/slides-settings.yml) contains the general presentation parameters that will override role's defaults:
-    
+
     ```yaml
     ---
-    
+
     kpa_project_dir: 'projects/example'
-    
+
     marp_theme: example
     marp_background_color: #ffffff
     marp_background_image: "{{ kpa_project_dir }}/images/slide-background.png"
     marp_author: 'Raoul Scarazzini'
     marp_copyright: '© 2023 MiaMammaUsaLinux.org'
     marp_paginate: true
-    
+
     marp_cover_template: "{{ kpa_project_dir }}/templates/cover.md.j2"
     marp_cover_image: "{{ kpa_project_dir }}/images/cover-image.png"
     marp_cover_logo: "{{ kpa_project_dir }}/images/logo.png"
     marp_cover_background_image: "{{ kpa_project_dir }}/images/cover-background.png"
-    
+
     marp_chapter_template: "{{ kpa_project_dir }}/templates/chapter.md.j2"
     marp_chapter_background_image: "{{ kpa_project_dir }}/images/chapter-background.png"
     ```
@@ -119,31 +119,33 @@ Where:
 - [images](projects/example/images/) contains backgrounds, logos and all the useful graphics elements for the slides.
 
 - [templates](projects/example/templates/) contains the templates for the special slides that will be processed by Ansible. These templates will parse the variables, to be reusable. For example, the [chapter.md.j2](projects/example/templates/chapter.md.j2) contains the layout for the slide that will be shown at the beginning of each KP/Chapter:
-  
+
   ```markdown
   ---
-  
+
   <!-- _backgroundImage: url({{ marp_chapter_background_image }}) -->
-  
+
   # <span class="txt-yellow">{{ slide.title }}</span>
-  
+
   <span class="txt-yellow">{{ slide.chapter }}</span>
   ```
-  
+
   The variables used in this file can be declared globally (like `marp_chapter_backgroundImage`, see [slides-settings.yml](projects/example/slides-settings.yml)) or specifically (like `slide.title`, see [Example-Training-01.yml](projects/example/Example-Training-01.yml)).
 
 - [contents](projects/example/contents/) contains the **Knowledge Pods** in the [Marp Markdown compatible format](https://marpit.marp.app/markdown) (The main rule: `---` is the beginning of a new slide).
 
 - [Example-Training-01.yml](projects/example/Example-Training-01.yml) is the slides set declaration, it contains the structure of the document, in a list element:
-  
+
   ```yaml
   ---
   marp_title: "My spectacular course"
-  
-  marp_output_file: "slides/Example-Training-01.md"
-  
+
+  output_file: "slides/Example-Training-01"
+  schedule_output_file: "{{ output_file }}.schedule.md"
+  marp_output_file: "{{ output_file }}.md"
+
   kpa_contents: "{{ kpa_project_dir }}/contents"
-  
+
   marp_slides:
     # DAY 1
     - cover: true
@@ -210,15 +212,23 @@ PLAY [localhost] ***************************************************************
 TASK [marp-slides-creator : Creating the template] ***********************************************************************************************************************
 changed: [localhost]
 
-PLAY RECAP ***************************************************************************************************************************************************************
-localhost                  : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+TASK [mmul.kpa_marp_slides_generator : Create schedule markdown] ******************************************************************************************
+changed: [localhost]
+
+PLAY RECAP ************************************************************************************************************************************************
+localhost                  : ok=2    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-This command will then generate a file named `slides.md` in the `slides` directory, as declared in the `marp_output_file` variable (see [projects/example/slides-settings.yml](projects/example/slides-settings.yml)).
+This command will then generate two files in the `slides` directory:
+
+- The Marp slides: `Example-Training-01.md`, as declared in the `marp_output_file` variable.
+- The schedule markdown: `Example-Training-01.schedule.md`, as declared in the `schedule_output_file` variable.
+
+For both variables check [projects/example/slides-settings.yml](projects/example/slides-settings.yml)).
 
 ### About executing the `kpa_marp_slides_generator.yml` Ansible playbook
 
-The `kpa_marp_slides_generator.yml` Ansible playbook lives inside the `playbooks` folder. 
+The `kpa_marp_slides_generator.yml` Ansible playbook lives inside the `playbooks` folder.
 
 Since this will be its working directory it will need access to both `projects` and `slides` folder and this is the reason you will find two symbolic links pointing to your KPA projects directory and slides output directory:
 
@@ -248,12 +258,24 @@ To get a presentation with the Markdown file generated by the `marp-slides-creat
     marpteam/marp-cli \
       --html true \
       --theme ./projects/example/common/theme.css \
-      slides/slides.md 
+      slides/slides.md
 [  INFO ] Converting 1 markdown...
 [  INFO ] slides/slides.md => slides/slides.html
 ```
 
 `Marp` supports exporting in `pdf`, `html` and `ppt`. You might want to remember the `--allow-local-files` when exporting into static files like `pdf` and `ppt`.
+
+## Create the presentation schedule from the schedule markdown file
+
+It is possible to use `pandoc` to convert the generated `Example-Training-01.schedule.md` file into a pdf:
+
+```console
+> pandoc --template=projects/example/common/example.tex \
+    slides/Example-Training-01.schedule.md \
+    -o slides/Example-Training-01.schedule.pdf
+```
+
+Check the [projects/example/common/example.tex](projects/example/common/example.tex) template that the `pandoc` is using is a simple one, but there's an infinite amount of possibilities with `pandoc` and texfiles.
 
 ### Results
 
@@ -270,6 +292,10 @@ The `marp-cli` execution should produce these set of slides:
 - Slide:
 
   ![](images/slide.png)
+
+- Schedule:
+
+  ![](images/schedule.png)
 
 ### About exporting with `marp-cli`
 
@@ -295,7 +321,7 @@ For the Example training, a custom css (check [projects/example/theme.css](proje
 The theme can be integrated with the various tools available for Marp:
 
 - [Marp for VS Code extension](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode): In the `settings.json` file
-  
+
   ```json
   {
     "markdown.marp.themes": ["./projects/example/theme.css"],
@@ -304,7 +330,7 @@ The theme can be integrated with the various tools available for Marp:
   ```
 
 - With the [Marp CLI](https://github.com/marp-team/marp-cli)
-  
+
   ```bash
   > docker run \
     --rm \

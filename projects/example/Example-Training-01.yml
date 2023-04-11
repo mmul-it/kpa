@@ -2,7 +2,9 @@
 
 marp_title: "My spectacular training"
 
-marp_output_file: "slides/Example-Training-01.md"
+output_file: "slides/Example-Training-01"
+schedule_output_file: "{{ output_file }}.schedule.md"
+marp_output_file: "{{ output_file }}.md"
 
 kpa_contents: "{{ kpa_project_dir }}/contents"
 
