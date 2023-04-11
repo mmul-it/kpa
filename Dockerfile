@@ -1,6 +1,12 @@
 # Containerfile for KPA project to be used in CI
+
+# Custom cache invalidation
+ARG CACHEBUST=$(date +%s)
+
+# Start from ansible-core
 FROM quay.io/ansible/ansible-core
 
+# Set /kpa as workdir
 WORKDIR /kpa
 
 # Install yamllint
@@ -17,8 +23,7 @@ RUN curl -sL https://rpm.nodesource.com/setup_14.x | bash -
 RUN dnf -y --enablerepo epel install chromium nodejs
 RUN npm install -g @marp-team/marp-cli
 
-# Install KPA repository (busting the cache)
-RUN echo $(date +%s) > /tmp/bustcache
+# Install KPA repository
 RUN git clone https://github.com/mmul-it/kpa .
 RUN ansible-galaxy install \
       -r playbooks/roles/requirements.yml \
