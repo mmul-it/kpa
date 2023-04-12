@@ -4,27 +4,38 @@
 ARG CACHEBUST=$(date +%s)
 
 # Start from ansible-core
-FROM quay.io/ansible/ansible-core
+FROM docker.io/ubuntu
 
 # Set /kpa as workdir
 WORKDIR /kpa
 
+# Update repo contents
+RUN apt update
+
+# Install requiremets
+RUN apt -y install python3-pip curl git
+
+# Install ansible & ansible-lint
+RUN pip3 install ansible ansible-lint
+
 # Install yamllint
-RUN pip3 install yamllint ansible-lint
+RUN pip3 install yamllint
 
 # Install mdl (Mardownlinter)
-RUN dnf -y module reset ruby
-RUN dnf -y module enable ruby:2.7
-RUN dnf -y install rubygems
+RUN apt -y install rubygems
 RUN gem install mdl
 
 # Install Marp
-RUN curl -sL https://rpm.nodesource.com/setup_14.x | bash -
-RUN dnf -y --enablerepo epel install chromium nodejs
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt -y install chromium-browser nodejs
 RUN npm install -g @marp-team/marp-cli
 
 # Install pandoc with texlive
-RUN dnf -y install pandoc texlive texlive-*
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Etc/UTC
+RUN apt -y install pandoc texlive texlive-base texlive-binaries \
+      texlive-fonts-recommended texlive-latex-base texlive-latex-extra \
+      texlive-latex-recommended texlive-pictures texlive-plain-generic texlive-xetex
 
 # Install KPA repository
 RUN git clone https://github.com/mmul-it/kpa .
