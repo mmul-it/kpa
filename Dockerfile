@@ -25,9 +25,13 @@ RUN pip3 install yamllint
 RUN apt -y install rubygems
 RUN gem install mdl
 
-# Install Marp
+# Install Marp with nodejs and chrome 
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt -y install chromium-browser nodejs
+RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
+    curl -s https://dl.google.com/linux/linux_signing_key.pub -o - | apt-key add - && \
+    gpg --refresh-keys && \
+    apt update
+RUN apt -y install nodejs google-chrome-stable
 RUN npm install -g @marp-team/marp-cli
 
 # Install pandoc with texlive
