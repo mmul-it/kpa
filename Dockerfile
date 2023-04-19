@@ -15,8 +15,9 @@ RUN apt update
 # Install requiremets
 RUN apt -y install python3-pip curl git
 
-# Install ansible & ansible-lint
-RUN pip3 install ansible ansible-lint
+# Upgrade pip & install ansible & ansible-lint
+RUN pip3 install --upgrade pip && \
+    pip3 install ansible ansible-lint
 
 # Install yamllint
 RUN pip3 install yamllint
@@ -26,8 +27,8 @@ RUN apt -y install rubygems
 RUN gem install mdl
 
 # Install Marp with nodejs and chrome 
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
     curl -s https://dl.google.com/linux/linux_signing_key.pub -o - | apt-key add - && \
     gpg --refresh-keys && \
     apt update
