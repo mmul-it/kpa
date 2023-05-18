@@ -2,5 +2,5 @@ playbooks/roles/*
 !playbooks/roles/requirements.yml
 projects/*
 !projects/example
-slides/*
-!slides/projects
+output/*
+!output/projects
