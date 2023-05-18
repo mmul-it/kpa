@@ -42,7 +42,7 @@ jobs:
                ansible-playbook
                  -e @projects/${KPA_PROJECT}/common/settings.yml
                  -e @${TRAINING}
-                 playbooks/kpa_marp_slides_generator.yml;
+                 playbooks/kpa_generator.yml;
              done
       - name: Upload markdown files
         uses: actions/upload-artifact@v3

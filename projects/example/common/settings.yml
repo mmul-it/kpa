@@ -2,9 +2,9 @@
 
 kpa_project_dir: "projects/example"
 
-schedule_pandoc_template_file: "{{ kpa_project_dir }}/common/example.tex"
-schedule_background_image: "{{ kpa_project_dir }}/images/schedule-background.png"
-schedule_header_includes:
+pandoc_agenda_template_file: "{{ kpa_project_dir }}/common/example.tex"
+pandoc_agenda_background_image: "{{ kpa_project_dir }}/images/schedule-background.png"
+pandoc_agenda_header_includes:
   - '\usepackage{booktabs}'
   - '\usepackage{longtable}'
   - '\usepackage{array}'

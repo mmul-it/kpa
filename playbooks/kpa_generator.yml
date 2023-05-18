@@ -7,4 +7,4 @@
   tasks:
     - name: Import KPA Marp slides generator role
       ansible.builtin.import_role:
-        name: mmul.kpa_marp_slides_generator
+        name: mmul.kpa_generator

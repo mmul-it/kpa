@@ -3,8 +3,8 @@
 marp_title: "My spectacular training"
 
 output_file: "output/Example-Training-01"
-schedule_output_markdown: "{{ output_file }}.schedule.md"
-schedule_output_pdf: "{{ output_file }}.schedule.pdf"
+pandoc_agenda_output_markdown: "{{ output_file }}.schedule.md"
+pandoc_agenda_output_pdf: "{{ output_file }}.schedule.pdf"
 marp_output_markdown: "{{ output_file }}.md"
 marp_output_pdf: "{{ output_file }}.pdf"
 
