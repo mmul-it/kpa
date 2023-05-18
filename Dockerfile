@@ -1,8 +1,5 @@
 # Containerfile for KPA project to be used in CI
 
-# Custom cache invalidation
-ARG CACHEBUST=$(date +%s)
-
 # Start from ansible-core
 FROM docker.io/ubuntu:22.04
 
@@ -43,7 +40,9 @@ RUN apt -y install pandoc texlive texlive-base texlive-binaries \
       texlive-latex-recommended texlive-pictures texlive-plain-generic texlive-xetex
 
 # Install KPA repository
-RUN git clone https://github.com/mmul-it/kpa .
+# Set kpa version to point the correct tag (and not use the git cache)
+ENV KPA_VERSION="latest"
+RUN git clone --branch=${KPA_VERSION} https://github.com/mmul-it/kpa .
 RUN ansible-galaxy install \
       -r playbooks/roles/requirements.yml \
       --roles-path ./playbooks/roles
