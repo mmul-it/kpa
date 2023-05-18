@@ -1,0 +1,11 @@
+parseable: true
+quiet: false
+skip_list:
+  # If we follow this rule the tasks will become unreadable
+  - 'key-order[task]'
+  # We need for tests to include a path instead of a name for the role
+  - 'role-name[path]'
+  # This rule acts weirdly for some reason, no need to loose time on it
+  - 'var-naming[no-role-prefix]'
+use_default_rules: true
+verbosity: 0
