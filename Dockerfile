@@ -4,7 +4,7 @@
 ARG CACHEBUST=$(date +%s)
 
 # Start from ansible-core
-FROM docker.io/ubuntu
+FROM docker.io/ubuntu:22.04
 
 # Set /kpa as workdir
 WORKDIR /kpa
@@ -47,3 +47,6 @@ RUN git clone https://github.com/mmul-it/kpa .
 RUN ansible-galaxy install \
       -r playbooks/roles/requirements.yml \
       --roles-path ./playbooks/roles
+
+# Define CMD
+ENTRYPOINT ["/kpa/kpa.sh"]
