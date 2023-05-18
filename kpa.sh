@@ -103,7 +103,7 @@ export ANSIBLE_LOCALHOST_WARNING=False
 ANSIBLE_COMMAND="ansible-playbook ${ANSIBLE_VERBOSE}
   -e @projects/${KPA_PROJECT}/common/settings.yml
   -e @projects/${KPA_PROJECT}/${KPA_YML}
-  playbooks/kpa_marp_slides_generator.yml"
+  playbooks/kpa_generator.yml"
 
 [ "x${ANSIBLE_VERBOSE}" == "x" ] && ${ANSIBLE_COMMAND} &> /dev/null || ${ANSIBLE_COMMAND}
 
