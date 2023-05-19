@@ -40,9 +40,7 @@ RUN apt -y install pandoc texlive texlive-base texlive-binaries \
       texlive-latex-recommended texlive-pictures texlive-plain-generic texlive-xetex
 
 # Install KPA repository
-# Set kpa version to point the correct tag (and not use the git cache)
-ENV KPA_VERSION="latest"
-RUN git clone --branch=${KPA_VERSION} https://github.com/mmul-it/kpa .
+RUN git clone https://github.com/mmul-it/kpa .
 RUN ansible-galaxy install \
       -r playbooks/roles/requirements.yml \
       --roles-path ./playbooks/roles
