@@ -6,7 +6,7 @@ While producing new *Knowleldge Pods* or modifying existing ones you will have a
 
 ## How to make it work
 
-To implement CI in KPA a container named [kpa is available at quay.io](https://quay.io/repository/mmul/), complete of this repository, the `kpa_marp_slides_generator` Ansible role and Marp itself. It is everything you need to automate slides generation.
+To implement CI in KPA a container named [kpa is available at quay.io](https://quay.io/repository/mmul/), complete of this repository, the `kpa_generator` Ansible role, and the Marp and Pandoc tools. It is everything you need to automate the generation.
 
 Your KPA project will live in a repository and should have the structure described in the [Create a KPA project](https://github.com/mmul-it/kpa/#create-a-kpa-project) chapter inside the main documentation file of this repository.
 
@@ -56,14 +56,14 @@ jobs:
                echo "Processing ${TRAINING}";
                ansible-playbook
                  -e @${TRAINING}
-                 playbooks/kpa_marp_slides_generator.yml;
+                 playbooks/kpa_generator.yml;
              done
-      - run: ls slides
+      - run: ls output
       - name: Upload markdown files
         uses: actions/upload-artifact@v3
         with:
           name: markdowns
-          path: /kpa/slides/**.md
+          path: /kpa/output/**.md
 
   marp-pdf:
     runs-on: ubuntu-latest
@@ -79,9 +79,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: markdowns
-          path: /kpa/slides/
+          path: /kpa/output/
       - name: Generate Marp pdf files
-        run: for TRAINING in $(ls slides/*.md); do
+        run: for TRAINING in $(ls output/*.md); do
                echo "Processing ${TRAINING}";
                marp --theme projects/${KPA_PROJECT}/common/theme.css --html --pdf --allow-local-files ${TRAINING};
              done
@@ -89,7 +89,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: pdfs
-          path: /kpa/slides/**.pdf
+          path: /kpa/output/**.pdf
 ```
 
 Each step is self explaining, but to give some highlights:
@@ -110,7 +110,7 @@ Each step is self explaining, but to give some highlights:
   
   Each step is dependent from the previous one and starts with `Link project dir in KPA projects folder`, a trick to put your project available in the `/kpa/projects` folder.
 
-**Note**: that this repository itself uses GitHub actions to automatically lint the Ansible code and the yaml and then produce slides for the default `example` project, check [.github/workflows/main.yml](.github/workflows/main.yml).
+**Note**: that this repository itself uses GitHub actions to automatically lint the Ansible code and the yaml and then produce slides and agenda for the default `example` project, check [.github/workflows/main.yml](.github/workflows/main.yml).
 
 ## Implement CI with GitLab CI
 
@@ -142,7 +142,7 @@ markdown:
   # Save generated markdown files
   artifacts:
     paths:
-      - slides/*.md
+      - output/*.md
   script:
     # Create symlink in the /kpa/projects dir pointing to project dir
     - ln -vs ${CI_PROJECT_DIR} /kpa/projects/${KPA_PROJECT}
@@ -151,30 +151,30 @@ markdown:
     - for TRAINING in $(ls projects/${KPA_PROJECT}); do
         echo "Processing $TRAINING";
         ansible-playbook
-          -e @projects/${KPA_PROJECT}/common/slides-settings.yml
+          -e @projects/${KPA_PROJECT}/common/settings.yml
           -e @projects/${KPA_PROJECT}/$TRAINING
-          playbooks/kpa_marp_slides_generator.yml;
+          playbooks/kpa_generator.yml;
       done
-    # Move slides folder into project dir (symlink won't work)
-    - mv /kpa/slides ${CI_PROJECT_DIR}/slides
+    # Move output folder into project dir (symlink won't work)
+    - mv /kpa/output ${CI_PROJECT_DIR}/output
 
 marp-pdf:
   stage: marp-pdf
-  # Depend from slides generated in the previous stage
+  # Depend from output generated in the previous stage
   dependencies:
    -  markdown
   # Save generated pdf files
   artifacts:
     paths:
-      - slides/*.pdf
+      - output/*.pdf
   before_script:
-    # Create projects directory under slides
-    - mkdir slides/projects
-    # Create a symlink pointing to the project dir under slides/projects
-    - ln -vs ${CI_PROJECT_DIR} slides/projects/${KPA_PROJECT}
+    # Create projects directory under output
+    - mkdir output/projects
+    # Create a symlink pointing to the project dir under output/projects
+    - ln -vs ${CI_PROJECT_DIR} output/projects/${KPA_PROJECT}
   script:
     # Generate pdf files using marp
-    - for TRAINING in $(ls slides/*.md); do
+    - for TRAINING in $(ls output/*.md); do
         echo "Processing $TRAINING";
         marp --theme common/theme.css --html --pdf --allow-local-files $TRAINING;
       done
@@ -182,4 +182,4 @@ marp-pdf:
 
 It uses the same trick of the symbolic link as the GitHub's one and it does essentially the same three main steps, or stage as GitLab calls them.
 
-This file will be placed into your project's GitLab repository and, for every push, will look for every training or content yaml file definition and process it into a pdf file under the `slides` directory, making those files available as GitLab job's artifacts.
+This file will be placed into your project's GitLab repository and, for every push, will look for every training or content yaml file definition and process it into a pdf file under the `output` directory, making those files available as GitLab job's artifacts.

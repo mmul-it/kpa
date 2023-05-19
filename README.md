@@ -205,11 +205,28 @@ Where:
 
 ## Using the KPA container
 
-The KPA project comes with a handy container that can be used to automate the creation of both the slides and the agenda PDF files.
+KPA comes with a handy container that can be used to automate the creation of both the slides and the agenda PDF files.
 
-Once you have a local project in place, it is enough to map it as a volume inside the `/kpa/projects` container's directory, as well as the output directory inside the `/kpa/output` container's directory, and then pass the `--project` and `--yml` options to execute everything and get your files in the output directory.
+Once you have a local project in place:
 
-Like this:
+```console
+> ls -1
+common
+contents
+Example-Training-01.yml
+images
+templates
+```
+
+You will need to launch the container by:
+
+- Mapping the project directory as a volume inside the `/kpa/projects/<project name>` container's directory.
+
+- Mapping the output directory (in this example `/tmp`) inside the `/kpa/output` container's directory.
+
+- Pass the `--project <project name>` (in this example `example`) and `--yml <kpa document yaml>` (in this example `Example-Training-01.yml`) options.
+
+Your command line will be something like this:
 
 ```console
 > docker run --rm \
@@ -224,7 +241,17 @@ After a really short time you should get:
 Rendering example KPA project for Example-Training-01.yml file -> Completed.
 ```
 
-Note that, in case of errors, it is possible to use the `-v|--verbose` option to get a more talkative output (in fact the `ansbile-playbook` output).
+The output files will be created in the output mapped directory (in this example `/tmp`):
+
+```console
+> ls -1 /tmp/Example-Training-01.*
+/tmp/Example-Training-01.agenda.md
+/tmp/Example-Training-01.agenda.pdf
+/tmp/Example-Training-01.md
+/tmp/Example-Training-01.pdf
+```
+
+**Note**: in case of errors, it is possible to use the `-v|--verbose` option to get a more talkative output (in fact the `ansbile-playbook` output).
 
 ### Results
 
@@ -246,10 +273,8 @@ The KPA container execution should produce these set of slides and agenda inside
   
   ![](images/schedule.png)
 
-### Manual commands
+### Using KPA manually and in CI
 
-It is possible to use the KPA container to manually execute all the commands, check the [Commands](Commands.md) doc to learn how.
+The KPA container can be used interactively, and will give you an environment with all the tools needed to generate both slides and agenda, but it is also possible to use the `kpa_generator` Ansible role locally. Check the [KPA manual commands](Commands.md) document to learn how to use the tools manually.
 
-### Using KPA in CI
-
-Check the [Using KPA in CI](CI.md) doc to understand how to use KPA in both GitHub and GitLab CI.
+If you are interested in a deeper way of integrating KPA you can check the [Using KPA in CI](CI.md) document to understand how to use KPA in both GitHub and GitLab CI workloads.
