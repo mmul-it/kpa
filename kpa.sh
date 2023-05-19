@@ -94,6 +94,9 @@ if [ "x${KPA_YML}" == "x" ]
   exit 1
 fi
 
+# Ensure the output dir contains a symlink to projects
+ln -sf /kpa/projects /kpa/output/projects
+
 echo -n "Rendering ${KPA_PROJECT} KPA project for ${KPA_YML} file -> "
 
 # Launch ansible playbook
