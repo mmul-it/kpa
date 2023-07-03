@@ -1,4 +1,4 @@
-# <img src="images/kpa-logo.png" title="KPA - The Knowledge Pods Approach" alt="KPA logo" width="25"> KPA - The Knowledge Pods Approach
+# <img src="images/kpa-github-header.png" title="KPA - The Knowledge Pods Approach" alt="KPA">
 
 [![GitHub Actions CI](https://github.com/mmul-it/kpa/actions/workflows/main.yml/badge.svg?event=push)](https://github.com/mmul-it/kpa/actions/workflows/main.yml)
 [![Docker Repository on Quay](https://quay.io/repository/mmul/kpa/status "Docker Repository on Quay")](https://quay.io/repository/mmul/kpa)
@@ -7,7 +7,7 @@ This repository defines the **Knowledge Pods Approach** (**KPA**), an agile way 
 
 ## What is a KPA project?
 
-A **KPA project** is a set of variables and Markdown files that are used by the Ansible role named [kpa_marp_slides_generator](https://github.com/mmul-it/kpa_marp_slides_generator) to automate the creation of a single Markdown file that can be processed using [Marp (Markdown Presentation Ecosystem)](https://marp.app/#get-started) to obtain a set of slides in the usual presentation formats like **html**, **pdf** and **ppt**.
+A **KPA project** is a set of variables and Markdown files that are used by the Ansible role named [kpa_generator](https://github.com/mmul-it/kpa_generator) to automate the creation of a single Markdown file that can be processed using [Marp (Markdown Presentation Ecosystem)](https://marp.app/#get-started) to obtain a set of slides in the usual presentation formats like **html**, **pdf** and **ppt**.
 
 **KPA** makes it possible to control all the knowledge in a standard and "edit from everywhere" way, making it easy to compose and mix the set of topics you want to include into the training, by creating sequences of **Knowledge Pods** (**KP**).
 
@@ -278,3 +278,11 @@ The KPA container execution should produce these set of slides and agenda inside
 The KPA container can be used interactively, and will give you an environment with all the tools needed to generate both slides and agenda, but it is also possible to use the `kpa_generator` Ansible role locally. Check the [KPA manual commands](Commands.md) document to learn how to use the tools manually.
 
 If you are interested in a deeper way of integrating KPA you can check the [Using KPA in CI](CI.md) document to understand how to use KPA in both GitHub and GitLab CI workloads.
+
+## License
+
+MIT
+
+## Author Information
+
+Raoul Scarazzini ([rascasoft](https://github.com/rascasoft))                    
