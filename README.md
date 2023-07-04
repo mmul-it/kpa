@@ -1,4 +1,4 @@
-# <img src="images/kpa-github-header.png" title="KPA - The Knowledge Pods Approach" alt="KPA">
+# ![KPA - The Knowledge Pods Approach](./images/kpa-github-header.png#gh-light-mode-only) ![KPA - The Knowledge Pods Approach](./images/kpa-github-header-dark.png#gh-dark-mode-only)
 
 [![GitHub Actions CI](https://github.com/mmul-it/kpa/actions/workflows/main.yml/badge.svg?event=push)](https://github.com/mmul-it/kpa/actions/workflows/main.yml)
 [![Docker Repository on Quay](https://quay.io/repository/mmul/kpa/status "Docker Repository on Quay")](https://quay.io/repository/mmul/kpa)
