@@ -112,6 +112,8 @@ Each step is self explaining, but to give some highlights:
 
 **Note**: that this repository itself uses GitHub actions to automatically lint the Ansible code and the yaml and then produce slides and agenda for the default `example` project, check [.github/workflows/main.yml](.github/workflows/main.yml).
 
+**Note**: the KPA project was presented in several public occasions using a presentation that is available at [https://github.com/mmul-it/kpa-mmul](https://github.com/mmul-it/kpa-mmul). This KPA project includes [a GitHub Workflow pipeline](https://github.com/mmul-it/kpa-mmul/blob/main/.github/workflows/main.yml) that generates both the slides and the agenda for each commit.
+
 ## Implement CI with GitLab CI
 
 If your repository lives inside GitLab then this is a practical example about how to use the KPA container to process a project named `myproject` using GitLab CI.
