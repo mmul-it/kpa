@@ -3,9 +3,6 @@
 # Start from ansible-core
 FROM docker.io/ubuntu:22.04
 
-# Set /kpa as workdir
-WORKDIR /kpa
-
 # Update repo contents
 RUN apt update
 
@@ -39,11 +36,23 @@ RUN apt -y install pandoc texlive texlive-base texlive-binaries \
       texlive-fonts-recommended texlive-latex-base texlive-latex-extra \
       texlive-latex-recommended texlive-pictures texlive-plain-generic texlive-xetex
 
+# Add user and group for the kpa unprivileged user
+RUN groupadd --gid 1000 kpa && \
+    useradd --no-log-init -d /kpa --uid 1000 -g kpa kpa && \
+    mkdir /kpa && \
+    chown -R kpa: /kpa
+
+# Set /kpa as workdir
+WORKDIR /kpa
+
 # Install KPA repository
 RUN git clone https://github.com/mmul-it/kpa .
 RUN ansible-galaxy install \
       -r playbooks/roles/requirements.yml \
       --roles-path ./playbooks/roles
+
+# Set user to  kpa
+USER kpa
 
 # Define CMD
 ENTRYPOINT ["/kpa/kpa.sh"]
