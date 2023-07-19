@@ -45,14 +45,14 @@ RUN groupadd --gid 1000 kpa && \
 # Set /kpa as workdir
 WORKDIR /kpa
 
+# Set user to  kpa
+USER kpa
+
 # Install KPA repository
 RUN git clone https://github.com/mmul-it/kpa .
 RUN ansible-galaxy install \
       -r playbooks/roles/requirements.yml \
       --roles-path ./playbooks/roles
-
-# Set user to  kpa
-USER kpa
 
 # Define CMD
 ENTRYPOINT ["/kpa/kpa.sh"]
