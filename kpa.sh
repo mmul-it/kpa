@@ -94,8 +94,12 @@ if [ "x${KPA_YML}" == "x" ]
   exit 1
 fi
 
-# Ensure the output dir contains a symlink to projects
-ln -sf /kpa/projects /kpa/output/projects
+# If the output dir doesn't contain the projects link, create it
+if [ ! -L /kpa/output/projects  ]
+ then
+  cd /kpa/output && ln -sf ../projects && cd ..
+  DELETE_PROJECT_SYMLINK=true
+fi
 
 echo -n "Rendering ${KPA_PROJECT} KPA project for ${KPA_YML} file -> "
 
@@ -113,7 +117,13 @@ ANSIBLE_COMMAND="ansible-playbook ${ANSIBLE_VERBOSE}
 if [ $? -ne 0 ]
  then
   echo "Errors!"
-  exit 1
+  EXIT_STATUS=1
  else
   echo "Completed."
+  EXIT_STATUS=0
 fi
+
+# Remove symlink
+[ "x$DELETE_PROJECT_SYMLINK" != "x" ] && rm -f /kpa/output/projects
+
+exit $EXIT_STATUS
