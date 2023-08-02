@@ -91,18 +91,22 @@ projects/example/
 Where:
 
 - [common](projects/example/common): is the home for shared training/presentation files:
-  
+
   - [theme.css](projects/example/common/theme.css) is the css theme file that overrides Marp's default theme. This is not needed, you can use a [predefined Marp theme](https://github.com/marp-team/marp-core/tree/main/themes).
-  
+
   - [example.tex](projects/example/common/example.tex) is the Pandoc texfile template. This is not *strictly* needed, but to get the best from the generated agenda pdf a Pandoc template is more than reasonable.
-  
+
   - [settings.yml](projects/example/common/settings.yml) **is mandatory** and contains the general presentation parameters that will override role's defaults:
-    
+
     ```yaml
     ---
-    
+
+    # KPA
     kpa_project_dir: 'projects/example'
-    
+    kpa_author: 'Raoul Scarazzini'
+    kpa_copyright: '© 2023 MiaMammaUsaLinux.org'
+
+    # Pandoc
     pandoc_agenda_template_file: "{{ kpa_project_dir }}/common/example.tex"
     pandoc_agenda_background_image: "{{ kpa_project_dir }}/images/schedule-background.png"
     pandoc_agenda_header_includes:
@@ -119,20 +123,17 @@ Where:
       - '\usepackage{threeparttablex}'
       - '\usepackage[normalem]{ulem}'
       - '\usepackage{makecell}'
-    
+
+    # Marp
     marp_theme: example
     marp_theme_file: "{{ kpa_project_dir }}/common/theme.css"
     marp_background_color: #ffffff
     marp_background_image: "{{ kpa_project_dir }}/images/slide-background.png"
-    marp_author: 'Raoul Scarazzini'
-    marp_copyright: '© 2023 MiaMammaUsaLinux.org'
     marp_paginate: true
-    
     marp_cover_template: "{{ kpa_project_dir }}/templates/cover.md.j2"
     marp_cover_image: "{{ kpa_project_dir }}/images/cover-image.png"
     marp_cover_logo: "{{ kpa_project_dir }}/images/logo.png"
     marp_cover_background_image: "{{ kpa_project_dir }}/images/cover-background.png"
-    
     marp_chapter_template: "{{ kpa_project_dir }}/templates/chapter.md.j2"
     marp_chapter_background_image: "{{ kpa_project_dir }}/images/chapter-background.png"
     ```
@@ -140,37 +141,33 @@ Where:
 - [images](projects/example/images/) contains backgrounds, logos and all the useful graphics elements for the slides.
 
 - [templates](projects/example/templates/) contains the templates for the special slides that will be processed by Ansible. These templates will parse the variables, to be reusable. For example, the [chapter.md.j2](projects/example/templates/chapter.md.j2) contains the layout for the slide that will be shown at the beginning of each KP/Chapter:
-  
+
   ```markdown
   ---
-  
+
   <!-- _backgroundImage: url({{ marp_chapter_background_image }}) -->
-  
+
   # <span class="txt-yellow">{{ slide.title }}</span>
-  
+
   <span class="txt-yellow">{{ slide.chapter }}</span>
   ```
-  
+
   The variables used in this file can be declared globally (like `marp_chapter_backgroundImage`, see [slides-settings.yml](projects/example/slides-settings.yml)) or specifically (like `slide.title`, see [Example-Training-01.yml](projects/example/Example-Training-01.yml)).
 
 - [contents](projects/example/contents/) contains the **Knowledge Pods** in the [Marp Markdown compatible format](https://marpit.marp.app/markdown) (The main rule: `---` is the beginning of a new slide).
 
 - [Example-Training-01.yml](projects/example/Example-Training-01.yml) is the slides set declaration, it contains the structure of the document, in a list element:
-  
+
   ```yaml
   ---
-  marp_title: "My spectacular course"
-  
-  output_file: "slides/Example-Training-01"
-  schedule_output_file: "{{ output_file }}.schedule.md"
-  marp_output_file: "{{ output_file }}.md"
-  
+
+  # KPA
+  kpa_title: "My spectacular course"
   kpa_contents: "{{ kpa_project_dir }}/contents"
-  
-  marp_slides:
+  kpa_slides:
     # DAY 1
     - cover: true
-      title: "{{ marp_title }}"
+      title: "{{ kpa_title }}"
       subtitle: "DAY ONE"
     - chapter: 'DAY ONE - PART ONE'
       title: 'Topic 1'
@@ -182,7 +179,7 @@ Where:
       ...
     # Day 2
     - cover: true
-      title: "{{ marp_title }}"
+      title: "{{ kpa_title }}"
       subtitle: "DAY TWO"
     - chapter: 'DAY TWO - PART SEVEN'
       title: 'Topic 7'
@@ -191,7 +188,7 @@ Where:
       ...
     # Day 3
     - cover: true
-      title: "{{ marp_title }}"
+      title: "{{ kpa_title }}"
       subtitle: "DAY THREE"
     - chapter: 'DAY THREE - PART THIRTEEN'
       title: 'Topic 13'
@@ -201,6 +198,11 @@ Where:
     - chapter: 'DAY THREE - PART EIGHTEEN'
       title: 'Topic 18'
       content: "{{ kpa_contents }}/Topic-18.md"
+
+  # Output
+  output_file: "slides/Example-Training-01"
+  schedule_output_file: "{{ output_file }}.schedule.md"
+  marp_output_file: "{{ output_file }}.md"
   ```
 
 ## Using the KPA container
@@ -258,19 +260,19 @@ The output files will be created in the output mapped directory (in this example
 The KPA container execution should produce these set of slides and agenda inside the mapped output directory:
 
 - Cover:
-  
+
   ![images/slide-cover.png](images/slide-cover.png)
 
 - Chapter:
-  
+
   ![](images/slide-chapter.png)
 
 - Slide:
-  
+
   ![](images/slide.png)
 
 - Agenda:
-  
+
   ![](images/schedule.png)
 
 ### Using KPA manually and in CI
@@ -285,4 +287,4 @@ MIT
 
 ## Author Information
 
-Raoul Scarazzini ([rascasoft](https://github.com/rascasoft))                    
+Raoul Scarazzini ([rascasoft](https://github.com/rascasoft))

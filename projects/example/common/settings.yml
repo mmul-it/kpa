@@ -1,7 +1,11 @@
 ---
 
+# KPA
 kpa_project_dir: "projects/example"
+kpa_author: 'Raoul Scarazzini'
+kpa_copyright: '© 2023 MiaMammaUsaLinux.org'
 
+# Pandoc
 pandoc_agenda_template_file: "{{ kpa_project_dir }}/common/example.tex"
 pandoc_agenda_background_image: "{{ kpa_project_dir }}/images/schedule-background.png"
 pandoc_agenda_header_includes:
@@ -19,18 +23,15 @@ pandoc_agenda_header_includes:
   - '\usepackage[normalem]{ulem}'
   - '\usepackage{makecell}'
 
+# Marp
 marp_theme: example
 marp_theme_file: "{{ kpa_project_dir }}/common/theme.css"
 marp_background_color: #ffffff
 marp_background_image: "{{ kpa_project_dir }}/images/slide-background.png"
-marp_author: 'Raoul Scarazzini'
-marp_copyright: '© 2023 MiaMammaUsaLinux.org'
 marp_paginate: true
-
 marp_cover_template: "{{ kpa_project_dir }}/templates/cover.md.j2"
 marp_cover_image: "{{ kpa_project_dir }}/images/cover-image.png"
 marp_cover_logo: "{{ kpa_project_dir }}/images/logo.png"
 marp_cover_background_image: "{{ kpa_project_dir }}/images/cover-background.png"
-
 marp_chapter_template: "{{ kpa_project_dir }}/templates/chapter.md.j2"
 marp_chapter_background_image: "{{ kpa_project_dir }}/images/chapter-background.png"

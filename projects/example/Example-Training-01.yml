@@ -1,19 +1,12 @@
 ---
 
-marp_title: "My spectacular training"
-
-output_file: "output/Example-Training-01"
-pandoc_agenda_output_markdown: "{{ output_file }}.agenda.md"
-pandoc_agenda_output_pdf: "{{ output_file }}.agenda.pdf"
-marp_output_markdown: "{{ output_file }}.md"
-marp_output_pdf: "{{ output_file }}.pdf"
-
+# KPA
+kpa_title: "My spectacular training"
 kpa_contents: "{{ kpa_project_dir }}/contents"
-
-marp_slides:
+kpa_slides:
   # DAY 1
   - cover: true
-    title: "{{ marp_title }}"
+    title: "{{ kpa_title }}"
     subtitle: "DAY ONE"
   - chapter: 'DAY ONE - PART ONE'
     title: 'Topic 1'
@@ -35,7 +28,7 @@ marp_slides:
     content: "{{ kpa_contents }}/Topic-6.md"
   # Day 2
   - cover: true
-    title: "{{ marp_title }}"
+    title: "{{ kpa_title }}"
     subtitle: "DAY TWO"
   - chapter: 'DAY TWO - PART SEVEN'
     title: 'Topic 7'
@@ -57,7 +50,7 @@ marp_slides:
     content: "{{ kpa_contents }}/Topic-12.md"
   # Day 3
   - cover: true
-    title: "{{ marp_title }}"
+    title: "{{ kpa_title }}"
     subtitle: "DAY THREE"
   - chapter: 'DAY THREE - PART THIRTEEN'
     title: 'Topic 13'
@@ -77,3 +70,10 @@ marp_slides:
   - chapter: 'DAY THREE - PART EIGHTEEN'
     title: 'Topic 18'
     content: "{{ kpa_contents }}/Topic-18.md"
+
+# Output
+output_file: "output/Example-Training-01"
+pandoc_agenda_output_markdown: "{{ output_file }}.agenda.md"
+pandoc_agenda_output_pdf: "{{ output_file }}.agenda.pdf"
+marp_output_markdown: "{{ output_file }}.md"
+marp_output_pdf: "{{ output_file }}.pdf"
