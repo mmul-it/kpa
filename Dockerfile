@@ -10,6 +10,7 @@ RUN mkdir /kpa/projects
 
 # Copy local files into container
 COPY kpa.sh /kpa/
+COPY .ansible-lint .mdl* .yamllint /kpa/
 COPY playbooks /kpa/playbooks
 COPY projects/example /kpa/projects/example
 
