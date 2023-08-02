@@ -1,16 +1,18 @@
-name: Create PDFs for example project
+name: Linter, test, build and push KPA container
 
 env:
   KPA_PROJECT: example
+  REGISTRY_NAME: quay.io
+  CONTAINER_NAME: mmul/kpa
+  CONTAINER_VERSION: latest
 
 on: [push]
 
 jobs:
-  lint:
+  linter:
     runs-on: ubuntu-latest
     container:
-      image: quay.io/mmul/kpa
-      options: --user root
+      image: quay.io/mmul/kpa-marp-pandoc
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -25,12 +27,11 @@ jobs:
       - name: Check markdown files for example project
         run: mdl projects/${KPA_PROJECT}/contents/*.md
 
-  markdown:
+  test:
     runs-on: ubuntu-latest
     container:
-      image: quay.io/mmul/kpa
-      options: --user root
-    needs: lint
+      image: quay.io/mmul/kpa-marp-pandoc
+    needs: linter
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -38,41 +39,33 @@ jobs:
         run: ansible-galaxy install
                -r playbooks/roles/requirements.yml
                --roles-path ./playbooks/roles
-      - name: Generate markdown files
-        run: for TRAINING in $(ls projects/${KPA_PROJECT}/*.yml); do
+      - name: Generate markdown and pdf files
+        run: for KPA_DOC in $(ls projects/${KPA_PROJECT}/*.yml); do
                echo "Processing ${TRAINING}";
                ansible-playbook
                  -e @projects/${KPA_PROJECT}/common/settings.yml
-                 -e @${TRAINING}
+                 -e @${KPA_DOC}
                  playbooks/kpa_generator.yml;
              done
-      - name: Upload markdown files
+      - name: Upload generated markdown files
         uses: actions/upload-artifact@v3
         with:
           name: markdowns
           path: output/**.md
-
-  marp-pdf:
-    runs-on: ubuntu-latest
-    container:
-      image: quay.io/mmul/kpa
-      options: --user root
-    needs: markdown
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Download markdown files
-        uses: actions/download-artifact@v3
-        with:
-          name: markdowns
-          path: output/
-      - name: Generate Marp pdf files
-        run: for TRAINING in $(ls output/*.md); do
-               echo "Processing ${TRAINING}";
-               marp --theme projects/${KPA_PROJECT}/common/theme.css --html --pdf --allow-local-files ${TRAINING};
-             done
-      - name: Upload Marp pdf files
+      - name: Upload generated pdf files
         uses: actions/upload-artifact@v3
         with:
           name: pdfs
           path: output/**.pdf
+
+  build_and_push:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the container image
+      run: docker build . --file Dockerfile --tag ${REGISTRY_NAME}/${CONTAINER_NAME}:${CONTAINER_VERSION}
+    - name: Login into the container registry
+      run: docker login -u="${{ vars.QUAY_ROBOT_NAME }}" -p="${{ secrets.QUAY_ROBOT_TOKEN }}" ${REGISTRY_NAME}
+    - name: Push the image into the container registry
+      run: docker push ${REGISTRY_NAME}/${CONTAINER_NAME}:${CONTAINER_VERSION}

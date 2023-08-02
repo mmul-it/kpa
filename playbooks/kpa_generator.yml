@@ -5,6 +5,6 @@
   connection: local
   gather_facts: false
   tasks:
-    - name: Import KPA Marp slides generator role
+    - name: Import KPA generator role
       ansible.builtin.import_role:
         name: mmul.kpa_generator
