@@ -2,8 +2,8 @@ name: Linter, test, build and push KPA container
 
 env:
   KPA_PROJECT: example
-  REGISTRY_NAME: quay.io
-  CONTAINER_NAME: mmul/kpa
+  REGISTRY_NAME: ghcr.io
+  CONTAINER_NAME: mmul-it/kpa
   CONTAINER_VERSION: latest
 
 on: [push]
@@ -12,7 +12,7 @@ jobs:
   linter:
     runs-on: ubuntu-latest
     container:
-      image: quay.io/mmul/kpa-marp-pandoc
+      image: ghcr.io/mmul-it/kpa-marp-pandoc
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -30,7 +30,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: quay.io/mmul/kpa-marp-pandoc
+      image: ghcr.io/mmul-it/kpa-marp-pandoc
     needs: linter
     steps:
       - name: Checkout repository
@@ -66,6 +66,6 @@ jobs:
     - name: Build the container image
       run: docker build . --file Dockerfile --tag ${REGISTRY_NAME}/${CONTAINER_NAME}:${CONTAINER_VERSION}
     - name: Login into the container registry
-      run: docker login -u="${{ vars.QUAY_ROBOT_NAME }}" -p="${{ secrets.QUAY_ROBOT_TOKEN }}" ${REGISTRY_NAME}
+      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ vars.GHCR_USER }} --password-stdin
     - name: Push the image into the container registry
       run: docker push ${REGISTRY_NAME}/${CONTAINER_NAME}:${CONTAINER_VERSION}
