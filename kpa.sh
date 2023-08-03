@@ -36,9 +36,9 @@ while [ "x$1" != "x" ]; do
             KPA_PROJECT=$2
             shift
             # Check settings file
-            if [ ! -f "projects/${KPA_PROJECT}/common/settings.yml" ]
+            if [ ! -f "/kpa/projects/${KPA_PROJECT}/common/settings.yml" ]
              then
-               echo "A setting.yml file must exists under projects/${KPA_PROJECT}/common/!"
+               echo "A settings.yml file must exists under /kpa/projects/${KPA_PROJECT}/common/!"
                echo ""
                usage
                exit 1
@@ -49,9 +49,9 @@ while [ "x$1" != "x" ]; do
             KPA_YML=$2
             shift
             # Check kpa yaml
-            if [ ! -f "projects/${KPA_PROJECT}/${KPA_YML}" ]
+            if [ ! -f "/kpa/projects/${KPA_PROJECT}/${KPA_YML}" ]
              then
-               echo "Unable to get projects/${KPA_PROJECT}/${KPA_YML} file!"
+               echo "Unable to get /kpa/projects/${KPA_PROJECT}/${KPA_YML} file!"
                echo ""
                usage
                exit 1
@@ -108,9 +108,9 @@ export ANSIBLE_INVENTORY_UNPARSED_WARNING=False
 export ANSIBLE_LOCALHOST_WARNING=False
 
 ANSIBLE_COMMAND="ansible-playbook ${ANSIBLE_VERBOSE}
-  -e @projects/${KPA_PROJECT}/common/settings.yml
-  -e @projects/${KPA_PROJECT}/${KPA_YML}
-  playbooks/kpa_generator.yml"
+  -e @/kpa/projects/${KPA_PROJECT}/common/settings.yml
+  -e @/kpa/projects/${KPA_PROJECT}/${KPA_YML}
+  /kpa/playbooks/kpa_generator.yml"
 
 [ "x${ANSIBLE_VERBOSE}" == "x" ] && ${ANSIBLE_COMMAND} &> /dev/null || ${ANSIBLE_COMMAND}
 
