@@ -1,7 +1,7 @@
 # Dockerfile for KPA project to be used in CI
 
-# Start from ansible-core
-FROM quay.io/mmul/kpa-marp-pandoc
+# Start from kpa-marp-pandoc
+FROM ghcr.io/mmul-it/kpa-marp-pandoc:v1.0.0
 
 # Create workdir path
 RUN mkdir /kpa

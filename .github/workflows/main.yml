@@ -2,9 +2,9 @@ name: Linter, test, build and push KPA container
 
 env:
   KPA_PROJECT: example
-  REGISTRY_NAME: ghcr.io
-  CONTAINER_NAME: mmul-it/kpa
-  CONTAINER_VERSION: latest
+  REGISTRY_GHCR: ghcr.io/mmul-it
+  REGISTRY_QUAY: quay.io/mmul
+  CONTAINER_NAME: kpa
 
 on: [push]
 
@@ -12,7 +12,7 @@ jobs:
   linter:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/mmul-it/kpa-marp-pandoc
+      image: ghcr.io/mmul-it/kpa-marp-pandoc:v1.0.0
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -30,7 +30,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/mmul-it/kpa-marp-pandoc
+      image: ghcr.io/mmul-it/kpa-marp-pandoc:v1.0.0
     needs: linter
     steps:
       - name: Checkout repository
@@ -41,7 +41,6 @@ jobs:
                --roles-path ./playbooks/roles
       - name: Generate markdown and pdf files
         run: for KPA_DOC in $(ls projects/${KPA_PROJECT}/*.yml); do
-               echo "Processing ${TRAINING}";
                ansible-playbook
                  -e @projects/${KPA_PROJECT}/common/settings.yml
                  -e @${KPA_DOC}
@@ -64,8 +63,17 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the container image
-      run: docker build . --file Dockerfile --tag ${REGISTRY_NAME}/${CONTAINER_NAME}:${CONTAINER_VERSION}
-    - name: Login into the container registry
-      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ vars.GHCR_USER }} --password-stdin
-    - name: Push the image into the container registry
-      run: docker push ${REGISTRY_NAME}/${CONTAINER_NAME}:${CONTAINER_VERSION}
+      run: docker build .
+             --file Dockerfile
+             --tag ${REGISTRY_GHCR}/${CONTAINER_NAME}:${{ github.ref_name }}
+             --tag ${REGISTRY_GHCR}/${CONTAINER_NAME}:latest
+             --tag ${REGISTRY_QUAY}/${CONTAINER_NAME}:${{ github.ref_name }}
+             --tag ${REGISTRY_QUAY}/${CONTAINER_NAME}:latest
+    - name: Login into the GitHub Container Registry
+      run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ${REGISTRY_GHCR} --username "${{ vars.GHCR_USER }}" --password-stdin
+    - name: Login into the Quay Container Registry
+      run: echo "${{ secrets.QUAY_ROBOT_TOKEN }}" | docker login ${REGISTRY_QUAY} --username "${{ vars.QUAY_ROBOT_NAME }}" --password-stdin
+    - name: Push the image into the GitHub Container Registry
+      run: docker push --all-tags ${REGISTRY_GHCR}/${CONTAINER_NAME}
+    - name: Push the image into the Quay Container Registry
+      run: docker push --all-tags ${REGISTRY_QUAY}/${CONTAINER_NAME}
