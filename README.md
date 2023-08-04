@@ -1,52 +1,99 @@
 # ![KPA - The Knowledge Pods Approach](./images/kpa-github-header.png#gh-light-mode-only) ![KPA - The Knowledge Pods Approach](./images/kpa-github-header-dark.png#gh-dark-mode-only)
 
 [![GitHub Actions CI](https://github.com/mmul-it/kpa/actions/workflows/main.yml/badge.svg?event=push)](https://github.com/mmul-it/kpa/actions/workflows/main.yml)
-[![Docker Repository on Quay](https://quay.io/repository/mmul/kpa/status "Docker Repository on Quay")](https://quay.io/repository/mmul/kpa)
 
-This repository defines the **Knowledge Pods Approach** (**KPA**), an agile way to create, maintain and evolve training materials and presentations using standard [Markdown](https://en.wikipedia.org/wiki/Markdown) files to create beautiful slide sets.
+This repository defines the **Knowledge Pods Approach** (**KPA**), an agile way
+to create, maintain and evolve training materials and presentations using
+standard [markdown](https://en.wikipedia.org/wiki/Markdown) files to create
+beautiful slide sets and agendas.
 
-## What is a KPA project?
+## What is KPA
 
-A **KPA project** is a set of variables and Markdown files that are used by the Ansible role named [kpa_generator](https://github.com/mmul-it/kpa_generator) to automate the creation of a single Markdown file that can be processed using [Marp (Markdown Presentation Ecosystem)](https://marp.app/#get-started) to obtain a set of slides in the usual presentation formats like **html**, **pdf** and **ppt**.
+The **Knowledge Pods Approach (KPA)** is a method for creating training
+materials, presentations and documentation that separates the content creation
+(*the knowledge*) from their presentation (*the files*, i.e. pdf, ppt and html).
 
-**KPA** makes it possible to control all the knowledge in a standard and "edit from everywhere" way, making it easy to compose and mix the set of topics you want to include into the training, by creating sequences of **Knowledge Pods** (**KP**).
+**KPA** relies on the standard markdown file format, which means that there will
+be no need to rely on proprietary tools and formats to create contents.
 
-## What is a Knowledge Pod?
+**KPA** helps to concentrate on what matters most: the knowledge.
 
-A **Knowledge Pod** (**KP**) is the smallest part you can split a section of a training or of a presentation.
+**KPA** is at the same time:
 
-You can imagine it as a chapter. For example, if you need to deliver a training named "**How to use my technology**" in which you'll have to cover an **introduction** to your technology, the **prerequisites**, the **installation** and finally **day 0 operation**, then each one of these chapters would be a Knowledge Pod, like:
+- The definition of an approach, described in this page.
+- A container named **kpa** available in the
+  [GitHub Container Registry](https://ghcr.io/mmul-it/kpa).
+- An Ansible role named **kpa_generator** available in
+  [Ansible Galaxy](https://galaxy.ansible.com/mmul/kpa_generator).
+
+## What is a KPA project
+
+A **KPA project** is a set of variables and markdown files that are used by the
+Ansible role named [kpa_generator](https://github.com/mmul-it/kpa_generator) to
+automate the creation of a single combined markdown file that can be processed
+by [Marp (Markdown Presentation Ecosystem)](https://marp.app/#get-started) to
+obtain a set of slides in the usual presentation formats like **html**, **pdf**
+and **ppt**.
+The **kpa_generator** Ansible role generates also an agenda markdown that is
+converted to a PDF using the [Pandoc](https://pandoc.org/) tool.
+
+**KPA** makes it possible to control all the knowledge in a standard and "edit
+from everywhere" way, making it easy to compose and mix the set of topics you
+want to include into the training, by creating sequences of **Knowledge Pods**
+(**KP**).
+
+## What is a Knowledge Pod
+
+A **Knowledge Pod** (**KP**) is the smallest part you can split a section of a
+training or of a presentation.
+
+You can imagine it as a chapter. For example, if you need to deliver a training
+named "**How to use my technology**" in which you'll have to cover an
+**introduction** to your technology, the **prerequisites**, the **installation**
+and finally **day 0 operation**, then each one of these chapters would be a
+Knowledge Pod, like:
 
 - *Introduction.md*
-
 - *Prerequisites.md*
-
 - *Installation.md*
-
 - *Day-0-operations.md*
 
-A **Knowledge Pod** should have, uniformly, the same duration (say one hour), so that it will be easy to compose a training by picking the needed KP.
+A **Knowledge Pod** should have, uniformly, the same duration (say one hour), so
+that it will be easy to compose a training by picking the needed KPs.
 
-Each section of a **Knowledge Pod**, say a paragraph, is separated from the other with the `---` Markdown element, which represents a new slide.
+Each section of a **Knowledge Pod**, say a paragraph, is separated from the
+other with the `---` Markdown element, which represents a new slide.
 
-## What are the benefits of adopting KPA?
+## What are the benefits of adopting KPA
 
 There are several benefits using KPA:
 
-- **Concentrate <u>just</u> on the contents**: once you have defined your project, you don't need to care about anything but writing Knowledge Pods. No need to manually syntax highlight your code blocks, no need to adapt text, no need to duplicate your slide to modify just a simple sentence.
+- **Concentrate <u>just</u> on the contents**: once you have defined your
+  project, you don't need to care about anything but writing Knowledge Pods.
+  No need to manually syntax highlight your code blocks, no need to adapt text,
+  no need to duplicate your slide to modify just a simple sentence.
   Just write your Knowledge Pods in Markdown and you're good to go.
+- **Compose training and presentations <u>dynamically</u>**: no more Power Point
+  slides cut and paste. You can combine your Knowledge Pods in the way that fits
+  your needs, creating as many variants of your training and presentations as
+  you need.
+- **Have the same look & feel for <u>every</u> training or presentation**: no
+  more "*Ok, now you need to apply this new slide format to all our 100
+  presentations*". You will define your project look & feel one time and it will
+  be applied everywhere, always the same way.
+- **Use a <u>standard</u> and <u>reusable</u> format**: the same documentation
+  you will produce with KPA could be used wherever you want because it's
+  markdown, which is a standard, and you will be able to write your own tool to
+  manage your **Knowledge Pods**.
+- **Keep everything versioned and <u>in order</u>**: once you'll store your KPA
+  projects in a Git repository, you'll get versioning, monitoring of the changes
+  and your entire knowledge in one traceable place.
+- **Let everyone <u>do their job</u>**: Markdown is simple to the point that
+  even non-technical people can edit Knowledge Pods and this allows for everyone
+  to do their job: graphics can work on the themes, instructors can write the
+  contents and you, the **KPA master ©**, will put everything together.
 
-- **Compose training and presentations <u>dynamically</u>**: no more Power Point slides cut and paste. You can combine your Knowledge Pods in the way that fits your needs, creating as many variants of your training and presentations as you need.
-
-- **Have the same look & feel for <u>every</u> training or presentation**: no more "*Ok, now you need to apply this new slide format to all our 100 presentations*". You will define your project look & feel one time and it will be applied everywhere, always the same way.
-
-- **Use a <u>standard</u> and <u>reusable</u> format**: the same documentation you will produce with KPA could be used wherever you want because it's Markdown, which is a standard, and you will be able to write your own tool to manage your **Knowledge Pods**.
-
-- **Keep everything versioned and <u>in order</u>**: once you'll store your KPA projects in a Git repository, you'll get versioning, monitoring of the changes and your entire knowledge in one traceable place.
-
-- **Let everyone <u>do their job</u>**: Markdown is simple to the point that even non-technical people can edit Knowledge Pods and this allows for everyone to do their job: graphics can work on the themes, instructors can write the contents and you, the **KPA master ©**, will put everything together.
-
-## Create a KPA project
+## How to create a KPA project
 
 After cloning this repository:
 
@@ -63,7 +110,8 @@ Resolving deltas: 100% (51/51), done.
 > cd kpa
 ```
 
-You'll see a `projects` directory, which is meant to contain all your KPA projects. You can use `example` project as your starting point.
+You'll see a `projects` directory, which is meant to contain all your KPA
+projects. You can use `example` project as your starting point.
 
 This is the structure of a **KPA project**:
 
@@ -90,13 +138,17 @@ projects/example/
 
 Where:
 
-- [common](projects/example/common): is the home for shared training/presentation files:
-
-  - [theme.css](projects/example/common/theme.css) is the css theme file that overrides Marp's default theme. This is not needed, you can use a [predefined Marp theme](https://github.com/marp-team/marp-core/tree/main/themes).
-
-  - [example.tex](projects/example/common/example.tex) is the Pandoc texfile template. This is not *strictly* needed, but to get the best from the generated agenda pdf a Pandoc template is more than reasonable.
-
-  - [settings.yml](projects/example/common/settings.yml) **is mandatory** and contains the general presentation parameters that will override role's defaults:
+- [common](projects/example/common): is the home for shared
+  training/presentation files:
+  - [theme.css](projects/example/common/theme.css) is the css theme file that
+    overrides Marp's default theme. This is not needed, you can use a
+    [predefined Marp theme](https://github.com/marp-team/marp-core/tree/main/themes).
+  - [example.tex](projects/example/common/example.tex) is the Pandoc texfile
+    template. This is not *strictly* needed, but to get the best from the
+    generated agenda pdf a Pandoc template is more than reasonable.
+  - [settings.yml](projects/example/common/settings.yml) **is mandatory** and
+    contains the general presentation parameters that will override role's
+    defaults:
 
     ```yaml
     ---
@@ -138,9 +190,13 @@ Where:
     marp_chapter_background_image: "{{ kpa_project_dir }}/images/chapter-background.png"
     ```
 
-- [images](projects/example/images/) contains backgrounds, logos and all the useful graphics elements for the slides.
-
-- [templates](projects/example/templates/) contains the templates for the special slides that will be processed by Ansible. These templates will parse the variables, to be reusable. For example, the [chapter.md.j2](projects/example/templates/chapter.md.j2) contains the layout for the slide that will be shown at the beginning of each KP/Chapter:
+- [images](projects/example/images/) contains backgrounds, logos and all the
+  useful graphics elements for the slides.
+- [templates](projects/example/templates/) contains the templates for the
+  special slides that will be processed by Ansible. These templates will parse
+  the variables, to be reusable. For example, the [chapter.md.j2](projects/example/templates/chapter.md.j2)
+  contains the layout for the slide that will be shown at the beginning of each
+  KP/Chapter:
 
   ```markdown
   ---
@@ -152,11 +208,15 @@ Where:
   <span class="txt-yellow">{{ slide.chapter }}</span>
   ```
 
-  The variables used in this file can be declared globally (like `marp_chapter_backgroundImage`, see [slides-settings.yml](projects/example/slides-settings.yml)) or specifically (like `slide.title`, see [Example-Training-01.yml](projects/example/Example-Training-01.yml)).
-
-- [contents](projects/example/contents/) contains the **Knowledge Pods** in the [Marp Markdown compatible format](https://marpit.marp.app/markdown) (The main rule: `---` is the beginning of a new slide).
-
-- [Example-Training-01.yml](projects/example/Example-Training-01.yml) is the slides set declaration, it contains the structure of the document, in a list element:
+  The variables used in this file can be declared globally (like
+  `marp_chapter_backgroundImage`, see [slides-settings.yml](projects/example/slides-settings.yml))
+   or specifically (like `slide.title`, see [Example-Training-01.yml](projects/example/Example-Training-01.yml)).
+- [contents](projects/example/contents/) contains the **Knowledge Pods** in the
+  [Marp Markdown compatible format](https://marpit.marp.app/markdown) (The main
+  rule: `---` is the beginning of a new slide).
+- [Example-Training-01.yml](projects/example/Example-Training-01.yml) is the
+  slides set declaration, it contains the structure of the document, in a list
+  element:
 
   ```yaml
   ---
@@ -205,9 +265,10 @@ Where:
   marp_output_file: "{{ output_file }}.md"
   ```
 
-## Using the KPA container
+## How to use the KPA container
 
-KPA comes with a handy container that can be used to automate the creation of both the slides and the agenda PDF files.
+KPA comes with a handy container that can be used to automate the creation of
+both the slides and the agenda PDF files.
 
 Once you have a local project in place:
 
@@ -222,11 +283,13 @@ templates
 
 You will need to launch the container by:
 
-- Mapping the project directory as a volume inside the `/kpa/projects/<project name>` container's directory.
-
-- Mapping the output directory (in this example `/tmp`) inside the `/kpa/output` container's directory.
-
-- Pass the `--project <project name>` (in this example `example`) and `--yml <kpa document yaml>` (in this example `Example-Training-01.yml`) options.
+- Mapping the project directory as a volume inside the
+  `/kpa/projects/<project name>` container's directory.
+- Mapping the output directory (in this example `/tmp`) inside the
+  `/kpa/output` container's directory.
+- Pass the `--project <project name>` (in this example `example`) and
+  `--yml <kpa document yaml>` (in this example `Example-Training-01.yml`)
+  options.
 
 Your command line will be something like this:
 
@@ -243,7 +306,8 @@ After a really short time you should get:
 Rendering example KPA project for Example-Training-01.yml file -> Completed.
 ```
 
-The output files will be created in the output mapped directory (in this example `/tmp`):
+The output files will be created in the output mapped directory (in this example
+`/tmp`):
 
 ```console
 > ls -1 /tmp/Example-Training-01.*
@@ -253,11 +317,13 @@ The output files will be created in the output mapped directory (in this example
 /tmp/Example-Training-01.pdf
 ```
 
-**Note**: in case of errors, it is possible to use the `-v|--verbose` option to get a more talkative output (in fact the `ansbile-playbook` output).
+**Note**: in case of errors, it is possible to use the `-v|--verbose` option to
+get a more talkative output (in fact the `ansbile-playbook` output).
 
 ### Results
 
-The KPA container execution should produce these set of slides and agenda inside the mapped output directory:
+The KPA container execution should produce these set of slides and agenda inside
+the mapped output directory:
 
 - Cover:
 
@@ -275,11 +341,17 @@ The KPA container execution should produce these set of slides and agenda inside
 
   ![](images/schedule.png)
 
-### Using KPA manually and in CI
+### How to use KPA manually and in CI
 
-The KPA container can be used interactively, and will give you an environment with all the tools needed to generate both slides and agenda, but it is also possible to use the `kpa_generator` Ansible role locally. Check the [KPA manual commands](Commands.md) document to learn how to use the tools manually.
+The KPA container can be used interactively, and will give you an environment
+with all the tools needed to generate both slides and agenda, but it is also
+possible to use the `kpa_generator` Ansible role locally. Check the
+[KPA manual commands](Commands.md) document to learn how to use the tools
+manually.
 
-If you are interested in a deeper way of integrating KPA you can check the [Using KPA in CI](CI.md) document to understand how to use KPA in both GitHub and GitLab CI workloads.
+If you are interested in a deeper way of integrating KPA you can check the
+[Using KPA in CI](CI.md) document to understand how to use KPA in both GitHub
+and GitLab CI workloads.
 
 ## License
 

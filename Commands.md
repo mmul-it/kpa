@@ -1,24 +1,29 @@
 # KPA manual commands
 
-If you don't want to use the [KPA container](https://quay.io/repository/mmul/kpa) to automate everything, and you have different needs, than this page explain how to manual run every step of the *Knowledge Pods Approach*.
+If you don't want to use the [KPA container](hhttps://github.com/mmul-it/kpa#using-the-kpa-containe)
+to automate everything, and you have different needs, than this page explain how
+to manual run every step of the *Knowledge Pods Approach*.
 
 ## Using the KPA container interactively
 
-It is possible to launch the container interactively you will need to map the directory containing your project and the output directory.
+It is possible to launch the container interactively. You will need to map the
+directory containing your project and the output directory.
 
-This means that if you are on your project directory (in a project called `example`) you will use this command line:
+This means that if you are on your project directory (in a project called
+`example`) you will use this command line:
 
 ```console
 > docker run --rm -it --entrypoint /bin/bash \
   -v $PWD:/kpa/projects/example \
   -v /tmp:/kpa/output \
-  quay.io/mmul/kpa
+  ghcr.io/mmul-it/kpa
 root@45a9a2efac84:/kpa# 
 ```
 
 ## Create the markdown files with `kpa_generator.yml`
 
-The `kpa_generator` Ansible role is already available in the KPA container, but if you want to install it on your system you can use `ansible-galaxy`:
+The `kpa_generator` Ansible role is already available in the KPA container, but
+if you want to install it on your system you can use `ansible-galaxy`:
 
 ```bash
 > ansible-galaxy install \
@@ -31,7 +36,11 @@ Starting galaxy role install process
 - mmul.kpa_generator (main) was installed successfully
 ```
 
-Using the `ansible-playbook` command, the Ansible playbook named `kpa_generator.yml` under the `playbooks` folder, passing the **KPA Project** variables related to the common slides settings (`-e @projects/example/common/settings.yml`) and to the specific KPA document specification (`-e @projects/example/Example-Training-01.yml`) :
+Using the `ansible-playbook` command, the Ansible playbook named
+`kpa_generator.yml` under the `playbooks` folder, passing the **KPA Project**
+variables related to the common slides settings
+(`-e @projects/example/common/settings.yml`) and to the specific KPA document
+specification (`-e @projects/example/Example-Training-01.yml`) :
 
 ```bash
 > ansible-playbook \
@@ -40,10 +49,14 @@ Using the `ansible-playbook` command, the Ansible playbook named `kpa_generator.
     playbooks/kpa_generator.yml
 ```
 
-The playbook tries to generate the pdf files for both slides and agenda if the two variables `pandoc_agenda_output_pdf` and `marp_output_pdf` are set, otherwise it will just generate the markdown files:
+The playbook tries to generate the pdf files for both slides and agenda if the
+two variables `pandoc_agenda_output_pdf` and `marp_output_pdf` are set,
+otherwise it will just generate the markdown files:
 
-- The Marp slides: `Example-Training-01.md`, as declared in the `marp_output_file` variable.
-- The schedule markdown: `Example-Training-01.schedule.md`, as declared in the `pandoc_agenda_output_file` variable.
+- The Marp slides: `Example-Training-01.md`, as declared in the
+  `marp_output_file` variable.
+- The schedule markdown: `Example-Training-01.schedule.md`, as declared in the
+  `pandoc_agenda_output_file` variable.
 
 For both variables check [projects/example/settings.yml](projects/example/settings.yml).
 
@@ -51,7 +64,9 @@ For both variables check [projects/example/settings.yml](projects/example/settin
 
 The `kpa_generator.yml` Ansible playbook lives inside the `playbooks` folder.
 
-Since this will be its working directory it will need access to both `projects` and `output` folder and this is the reason you will find two symbolic links pointing to your KPA projects directory and slides output directory:
+Since this will be its working directory it will need access to both `projects`
+and `output` folder and this is the reason you will find two symbolic links
+pointing to your KPA projects directory and slides output directory:
 
 ```bash
 > ls -la playbooks/
@@ -64,11 +79,16 @@ drwxrwxr-x 3 rasca rasca 4096 gen 27 16:02 roles
 lrwxrwxrwx 1 rasca rasca    9 gen 27 15:26 output -> ../output
 ```
 
-If you decide to store your projects in a different folder or you want a different output destination directory you can either change these symbolic links or use absolute paths for the `kpa_project_dir` and `marp_output_markdown`/`pandoc_agenda_output_markdown` Ansible variables.
+If you decide to store your projects in a different folder or you want a
+different output destination directory you can either change these symbolic
+links or use absolute paths for the `kpa_project_dir` and
+`marp_output_markdown`/`pandoc_agenda_output_markdown` Ansible variables.
 
 ## Create the presentation from the Marp Markdown file
 
-To get a presentation, i.e. in html format, with the Markdown file generated by the `kpa_generator` Ansible role you can use the [Marp container](https://hub.docker.com/r/marpteam/marp-cli), like this:
+To get a presentation, i.e. in html format, with the Markdown file generated by
+the `kpa_generator` Ansible role you can use the [Marp container](https://hub.docker.com/r/marpteam/marp-cli),
+like this:
 
 ```console
 > docker run \
@@ -81,7 +101,6 @@ To get a presentation, i.e. in html format, with the Markdown file generated by 
       --theme ./projects/example/common/theme.css \
       output/
 [  INFO ] Converting 1 markdown...
-
 ```
 
 Or if you are in the KPA container, like this:
@@ -92,11 +111,13 @@ root@45a9a2efac84:/kpa# marp --html --theme projects/example/common/theme.css ou
 [  INFO ] output/Example-Training-01.md => output/Example-Training-01.html
 ```
 
-`Marp` supports exporting in `pdf`, `html` and `ppt`. You might want to remember the `--allow-local-files` when exporting into static files like `pdf` and `ppt`.
+`Marp` supports exporting in `pdf`, `html` and `ppt`. You might needto remember
+the `--allow-local-files` when exporting into static files like `pdf` and `ppt`.
 
 ## Create the presentation agenda from the agenda markdown file
 
-It is possible to use `pandoc` to convert the generated `Example-Training-01.agenda.md` file into a pdf:
+It is possible to use `pandoc` to convert the generated
+`Example-Training-01.agenda.md` file into a pdf:
 
 ```console
 > pandoc --template=projects/example/common/example.tex \
@@ -104,11 +125,16 @@ It is possible to use `pandoc` to convert the generated `Example-Training-01.age
     -o slides/Example-Training-01.schedule.pdf
 ```
 
-Check the [projects/example/common/example.tex](projects/example/common/example.tex) template that the `pandoc` is using is a simple one, but there's an infinite amount of possibilities with `pandoc` and texfiles.
+Check the [projects/example/common/example.tex](projects/example/common/example.tex)
+template that the `pandoc` is using is a simple one, but there's an infinite
+amount of possibilities with `pandoc` and texfiles.
 
 ### About exporting with `marp-cli`
 
-When exporting, the destination directory of your file should contain the images, `.css` files and so on, since it will process them "live". For this reason, you will find a symbolic link pointing to your KPA projects directory inside the `slides` output directory:
+When exporting, the destination directory of your file should contain the
+images, `.css` files and so on, since it will process them "live". For this
+reason, you will find a symbolic link pointing to your KPA projects directory
+inside the `slides` output directory:
 
 ```bash
 > ls -la slides/
@@ -121,15 +147,18 @@ lrwxrwxrwx 1 rasca rasca      10 gen 17 18:37 projects -> ../projects
 -rw-r--r-- 1 rasca rasca 3102777 gen 17 18:29 slides.pdf
 ```
 
-If you want to change the destination of your `.html` slides, remember that you will need the projects directory (or a link) in there.
+If you want to change the destination of your `.html` slides, remember that you
+will need the projects directory (or a link) in there.
 
 ### Themes
 
-For the Example training, a custom css (check [projects/example/theme.css](projects/example/theme.css)) has been created to give a sample on how the look & feel might be changed.
+For the Example training, a custom css (check [projects/example/theme.css](projects/example/theme.css))
+has been created to give a sample on how the look & feel might be changed.
 
 The theme can be integrated with the various tools available for Marp:
 
-- [Marp for VS Code extension](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode): In the `settings.json` file
+- [Marp for VS Code extension](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode),
+  in the `settings.json` file:
   
   ```json
   {
@@ -138,7 +167,7 @@ The theme can be integrated with the various tools available for Marp:
   }
   ```
 
-- With the [Marp CLI](https://github.com/marp-team/marp-cli)
+- With the [Marp CLI](https://github.com/marp-team/marp-cli):
   
   ```bash
   > docker run \
