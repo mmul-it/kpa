@@ -6,7 +6,7 @@ env:
   REGISTRY_QUAY: quay.io/mmul
   CONTAINER_NAME: kpa
 
-on: [push]
+on: [push,workflow_dispatch]
 
 jobs:
   linter:
