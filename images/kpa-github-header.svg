@@ -9,7 +9,7 @@
    viewBox="0 0 3616.668 653.3335"
    xml:space="preserve"
    sodipodi:docname="kpa-github-header.svg"
-   inkscape:export-filename="/home/rasca/Git/mmul-it/kpa/images/kpa-github.png"
+   inkscape:export-filename="/home/rasca/Git/mmul-it/kpa/images/kpa-github-header.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    width="775pt"
@@ -20,18 +20,21 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:i="&amp;#38;ns_ai;"><defs
+   xmlns:i="&amp;#38;#38;ns_ai;"><defs
    id="defs111"><rect
-     x="3081.2405"
-     y="1016.3162"
-     width="657.1944"
-     height="110.89539"
-     id="rect44501" /><rect
-     x="2064.3027"
-     y="994.47943"
-     width="4125.0615"
-     height="455.60837"
-     id="rect34007" /></defs><sodipodi:namedview
+   x="3081.2405"
+   y="1016.3162"
+   width="657.1944"
+   height="110.89539"
+   id="rect44501" /><rect
+   x="2064.3027"
+   y="994.47943"
+   width="4125.0615"
+   height="455.60837"
+   id="rect34007" />
+			
+			
+		</defs><sodipodi:namedview
    id="namedview109"
    pagecolor="#ffffff"
    bordercolor="#666666"
@@ -44,11 +47,11 @@
    width="1280px"
    showguides="true"
    inkscape:guide-bbox="true"
-   inkscape:zoom="0.85919567"
-   inkscape:cx="482.42794"
-   inkscape:cy="38.989954"
-   inkscape:window-width="1920"
-   inkscape:window-height="1014"
+   inkscape:zoom="1.6508946"
+   inkscape:cx="361.92499"
+   inkscape:cy="-2.4229288"
+   inkscape:window-width="3440"
+   inkscape:window-height="1375"
    inkscape:window-x="0"
    inkscape:window-y="0"
    inkscape:window-maximized="1"
@@ -85,7 +88,13 @@
      id="guide377" /><sodipodi:guide
      position="44.508129,280.15833"
      orientation="0,-1"
-     id="guide379" /></sodipodi:namedview>
+     id="guide379" /><sodipodi:guide
+     position="-114.61572,551.24897"
+     orientation="0,-1"
+     id="guide990" /><sodipodi:guide
+     position="1733.8929,80.585515"
+     orientation="0,-1"
+     id="guide992" /></sodipodi:namedview>
 <style
    type="text/css"
    id="style77">
@@ -5252,13 +5261,24 @@ W0WJ/UhFMvBEfcnWVf4o0CO1EAoyd8o1RYpYfEeH7fgs01He4hizDvkl52QtZW2F9e54aV89I4HW
 Dv+LQd3moI6M0PgYiDLfGhZRrUGuTOQNWWf84Iuo/7eAebkpR5tnG7KZDhVBK/hIcYGxxP3DCouG
 mnly7HlpICZfmxy0/SNwabOFUF136As39yeH2v7IxS+0q4gfhWF3AtIkVWEw+wDbvEql7SsAJwI=
 	]]>
-</i:aipgf>
+</i:aipgf><rect
+   style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#333333;stroke-width:2.33333;stroke-miterlimit:3.2;stroke-dasharray:none;stroke-opacity:1"
+   id="rect886"
+   width="3412.552"
+   height="470.65982"
+   x="97.784477"
+   y="102.08455"
+   ry="35.564911"
+   inkscape:export-filename="/home/rasca/Git/mmul-it/kpa/images/kpa-github-header.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96" />
 <g
    id="g241933"
    transform="translate(-470.91772,-462.3608)"
    inkscape:export-filename="/home/rasca/Git/mmul-it/kpa/images/kpa-github-header.png"
    inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96"><switch
+   inkscape:export-ydpi="96"
+   style="display:inline"><switch
      id="switch106"
      transform="translate(13.092354,-63.158898)">
 	<foreignObject
@@ -5282,35 +5302,32 @@ mnly7HlpICZfmxy0/SNwabOFUF136As39yeH2v7IxS+0q4gfhWF3AtIkVWEw+wDbvEql7SsAJwI=
    id="path79"
    style="stroke:#333333;stroke-opacity:1" />
 		<g
-   id="g94">
-			<g
-   id="g91">
+   id="g91"
+   style="stroke-width:1.00094081;stroke-miterlimit:3.20000005;stroke-dasharray:none">
 				<path
    d="m 510.48,373.31 c 0,-10.86 -6.23,-20.55 -15.85,-25.24 0.01,-0.35 0.05,-0.7 0.05,-1.05 0,-0.08 -0.04,-0.16 -0.05,-0.24 0.49,-15.83 -12.48,-28.91 -28.44,-28.91 h -0.03 c 0.57,-2.24 0.86,-4.56 0.86,-6.91 0,-15.53 -12.77,-28.17 -28.48,-28.17 -3.74,0 -7.42,0.73 -10.85,2.14 -7.88,-11.04 -20.74,-17.73 -34.57,-17.73 -13.83,0 -26.7,6.69 -34.57,17.73 -3.43,-1.41 -7.11,-2.14 -10.85,-2.14 -15.7,0 -28.48,12.63 -28.48,28.17 0,2.35 0.29,4.67 0.86,6.91 h -0.03 c -15.95,0 -28.9,13.09 -28.43,28.91 -0.01,0.08 -0.05,0.16 -0.05,0.24 0,0.36 0.04,0.7 0.05,1.05 -9.63,4.69 -15.85,14.39 -15.85,25.24 0,15.53 12.77,28.17 28.48,28.17 h 177.73 c 15.72,0 28.5,-12.64 28.5,-28.17 z m -225.14,0 c 0,-6.33 3.25,-12.02 8.4,-15.41 4.28,10.32 14.46,17.6 26.31,17.6 2.64,0 4.78,-2.14 4.78,-4.78 0,-2.64 -2.14,-4.78 -4.78,-4.78 -8.95,0 -16.43,-6.27 -18.38,-14.63 0,-0.08 0.04,-0.14 0.04,-0.22 0,-0.35 -0.04,-0.7 -0.11,-1.05 -2.66,-11.89 6.7,-22.61 18.46,-22.61 2.15,0 4.31,0.38 6.41,1.12 1.95,0.69 4.13,0.05 5.39,-1.59 1.27,-1.64 1.33,-3.91 0.15,-5.62 -2.11,-3.07 -3.22,-6.66 -3.22,-10.39 0,-10.26 8.49,-18.6 18.92,-18.6 3.54,0 7.01,0.99 10.04,2.86 1.11,0.69 2.45,0.89 3.72,0.56 1.26,-0.33 2.34,-1.15 2.97,-2.29 5.77,-10.31 16.76,-16.73 28.69,-16.73 11.93,0 22.92,6.41 28.69,16.73 0.63,1.14 1.71,1.97 2.97,2.29 1.26,0.33 2.6,0.12 3.71,-0.56 3.03,-1.87 6.5,-2.86 10.04,-2.86 10.43,0 18.92,8.35 18.92,18.6 0,3.72 -1.11,7.32 -3.22,10.39 -1.17,1.71 -1.11,3.98 0.15,5.62 1.26,1.64 3.44,2.29 5.39,1.59 2.1,-0.74 4.26,-1.12 6.41,-1.12 11.76,0 21.14,10.73 18.46,22.61 -0.08,0.38 -0.04,0.76 -0.04,1.13 -1.9,8.44 -9.43,14.77 -18.43,14.77 -2.64,0 -4.78,2.14 -4.78,4.78 0,2.64 2.14,4.78 4.78,4.78 11.85,0 22.03,-7.28 26.31,-17.6 5.15,3.39 8.4,9.09 8.4,15.41 0,10.26 -8.49,18.6 -18.92,18.6 h -74.21 v -7.03 c 0,-6.85 4.94,-12.42 11.02,-12.42 2.64,0 4.78,-2.14 4.78,-4.78 0,-2.64 -2.14,-4.78 -4.78,-4.78 -11.35,0 -20.58,9.86 -20.58,21.98 v 7.03 h -33.89 v -8.15 c 0,-3.86 2.71,-7 6.04,-7 14.09,0 25.55,-12.29 25.55,-27.4 v -3.18 c 0,-2.64 -2.14,-4.78 -4.78,-4.78 -2.64,0 -4.78,2.14 -4.78,4.78 v 3.18 c 0,9.84 -7.17,17.84 -15.99,17.84 -8.6,0 -15.61,7.43 -15.61,16.56 v 8.15 h -50.51 c -10.4,0.01 -18.89,-8.34 -18.89,-18.6 z"
    id="path81"
-   style="fill:#333333" />
+   style="fill:#333333;stroke-width:1.00094081;stroke-miterlimit:3.20000005;stroke-dasharray:none" />
 				<path
    d="m 416.82,332.05 c 10.26,0 18.61,-8.34 18.61,-18.6 v -1.98 c 0,-2.64 -2.14,-4.78 -4.78,-4.78 -2.64,0 -4.78,2.14 -4.78,4.78 v 1.98 c 0,4.99 -4.06,9.04 -9.04,9.04 -4.99,0 -9.04,-4.05 -9.04,-9.04 0,-2.64 -2.14,-4.78 -4.78,-4.78 -2.64,0 -4.78,2.14 -4.78,4.78 -0.01,10.25 8.33,18.6 18.59,18.6 z"
    id="path83"
-   style="fill:#333333" />
+   style="fill:#333333;stroke-width:1.00094081;stroke-miterlimit:3.20000005;stroke-dasharray:none" />
 				<path
    d="m 381.13,335.17 c 0,-13.53 -11,-24.53 -24.53,-24.53 h -1 c -2.64,0 -4.78,2.14 -4.78,4.78 0,2.64 2.14,4.78 4.78,4.78 h 1 c 8.25,0 14.97,6.71 14.97,14.97 0,2.64 2.14,4.78 4.78,4.78 2.64,0 4.78,-2.14 4.78,-4.78 z"
    id="path85"
-   style="fill:#333333" />
+   style="fill:#333333;stroke-width:1.00094081;stroke-miterlimit:3.20000005;stroke-dasharray:none" />
 				<path
    d="m 429.81,347.02 c 0,9.17 7.46,16.63 16.63,16.63 2.64,0 4.78,-2.14 4.78,-4.78 0,-2.64 -2.14,-4.78 -4.78,-4.78 -3.9,0 -7.07,-3.17 -7.07,-7.07 0,-2.64 -2.14,-4.78 -4.78,-4.78 -2.64,0 -4.78,2.14 -4.78,4.78 z"
    id="path87"
-   style="fill:#333333" />
+   style="fill:#333333;stroke-width:1.00094081;stroke-miterlimit:3.20000005;stroke-dasharray:none" />
 				<path
    d="m 340.64,364.79 c 0,-7.17 5.83,-12.99 12.99,-12.99 2.64,0 4.78,-2.14 4.78,-4.78 0,-2.64 -2.14,-4.78 -4.78,-4.78 -12.44,0 -22.56,10.12 -22.56,22.56 0,2.64 2.14,4.78 4.78,4.78 2.65,-0.01 4.79,-2.15 4.79,-4.79 z"
    id="path89"
-   style="fill:#333333" />
-			</g>
-			<path
+   style="fill:#333333;stroke-width:1.00094081;stroke-miterlimit:3.20000005;stroke-dasharray:none" />
+			</g><path
    id="Lamp_2_00000174582510485970696110000011886129750478440083_"
    d="m 307.17,480.82 c 15.2,10.75 24.28,28.09 24.28,46.39 v 57.25 c 0,11.33 9.22,20.56 20.56,20.56 h 10.76 c 2.03,9.22 10.26,16.14 20.07,16.14 l 20.56,0.02 h 0.01 c 5.49,0 10.65,-2.14 14.53,-6.02 2.82,-2.82 4.72,-6.32 5.55,-10.12 h 10.75 0.01 c 5.49,0 10.65,-2.14 14.53,-6.02 3.89,-3.88 6.02,-9.05 6.02,-14.54 v -57.27 c 0,-18.43 8.82,-35.59 23.6,-45.92 39.94,-27.91 63.78,-73.61 63.78,-122.26 0,-40.99 -17.14,-80.6 -47.04,-108.68 -30.31,-28.47 -69.94,-42.7 -111.64,-40.09 -74.11,4.65 -133.9,63.99 -139.09,138.04 -3.66,52.61 19.79,102.14 62.76,132.52 z M 410.68,607.9 c -1.94,1.94 -4.52,3.01 -7.26,3.01 v 0 l -20.57,-0.02 c -4.08,0 -7.62,-2.39 -9.28,-5.86 l 39.13,0.01 c -0.5,1.05 -1.18,2.01 -2.02,2.86 z m 33.85,-23.42 c 0,2.75 -1.07,5.33 -3.01,7.27 -1.94,1.94 -4.52,3.01 -7.27,3.01 v 0 L 352,594.74 c -5.67,0 -10.28,-4.61 -10.28,-10.28 v -2.2 l 102.81,0.03 z m 0,-12.48 -102.81,-0.03 V 559.5 l 102.81,0.02 z m 0,-22.75 -102.81,-0.02 V 536.75 H 444.53 Z M 254.69,349.02 c 4.83,-68.93 60.49,-124.17 129.48,-128.5 38.84,-2.43 75.74,10.82 103.96,37.32 28.24,26.53 43.79,62.46 43.79,101.19 0,45.29 -22.2,87.85 -59.39,113.84 -17.33,12.11 -27.75,32.1 -27.99,53.6 H 341.72 c -0.24,-21.36 -10.9,-41.52 -28.62,-54.04 -40.01,-28.29 -61.84,-74.42 -58.41,-123.41 z"
-   style="fill:#333333" />
-		</g>
+   style="fill:#333333;stroke-width:1.00094081;stroke-miterlimit:3.20000005;stroke-dasharray:none" />
 		<g
    id="g102">
 			<path
@@ -5318,7 +5335,7 @@ mnly7HlpICZfmxy0/SNwabOFUF136As39yeH2v7IxS+0q4gfhWF3AtIkVWEw+wDbvEql7SsAJwI=
    id="path96"
    style="fill:#333333" />
 			<polygon
-   points="113.01,559.13 102.48,585.65 123.41,585.65 "
+   points="102.48,585.65 123.41,585.65 113.01,559.13 "
    id="polygon98"
    style="fill:#333333" />
 			<path
@@ -5347,10 +5364,10 @@ mnly7HlpICZfmxy0/SNwabOFUF136As39yeH2v7IxS+0q4gfhWF3AtIkVWEw+wDbvEql7SsAJwI=
    transform="translate(-974.97158,-269.29479)"><tspan
      x="2064.3027"
      y="1228.1094"
-     id="tspan509"><tspan
+     id="tspan57915"><tspan
        dx="0 0 0 0 0 0 0 0 0 0 0 0.00010681152 0 0 0 0 0 0 0 0 0.00010681152"
        style="font-weight:600;font-family:'Mona Sans';-inkscape-font-specification:'Mona Sans Semi-Bold';fill:#333333"
-       id="tspan507">Knowlege Pods Approach</tspan></tspan></text><text
+       id="tspan57913">Knowlege Pods Approach</tspan></tspan></text><text
    xml:space="preserve"
    style="font-style:normal;font-weight:normal;font-size:133.333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:3565.68;fill:#000000;fill-opacity:1;stroke:none"
    x="2316.2764"
@@ -5359,30 +5376,30 @@ mnly7HlpICZfmxy0/SNwabOFUF136As39yeH2v7IxS+0q4gfhWF3AtIkVWEw+wDbvEql7SsAJwI=
    transform="translate(-1678.3283,8.846711)"><tspan
      x="2316.2764"
      y="1285.3871"
-     id="tspan513"><tspan
+     id="tspan57919"><tspan
        dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.00010681152 0 0 0 0 0 -0.00015449524 0 0 0.00019073486 0 0 0 -0.00015449524 0.00010681152 -0.00015449524 0.00010681152"
        style="font-family:'Mona Sans';-inkscape-font-specification:'Mona Sans';text-align:center;text-anchor:middle;fill:#333333"
-       id="tspan511">An agile way to create, maintain and evolve training </tspan></tspan><tspan
+       id="tspan57917">An agile way to create, maintain and evolve training </tspan></tspan><tspan
      x="2316.2764"
      y="1461.058"
-     id="tspan517"><tspan
+     id="tspan57923"><tspan
        dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.00011444092 0 0 0.00010681152 0 0 0 0 0 0 0.00010681152 0 0 0 0 -0.0001373291 0 0 0 0 0 0.00012969971 0 0 -0.00012969971 0 0 0 0.00010681152"
        style="font-family:'Mona Sans';-inkscape-font-specification:'Mona Sans';text-align:center;text-anchor:middle;fill:#333333"
-       id="tspan515">materials and presentations using standard Markdown </tspan></tspan><tspan
+       id="tspan57921">materials and presentations using standard Markdown </tspan></tspan><tspan
      x="2316.2764"
      y="1636.7289"
-     id="tspan521"><tspan
+     id="tspan57927"><tspan
        style="font-family:'Mona Sans';-inkscape-font-specification:'Mona Sans';text-align:center;text-anchor:middle;fill:#333333"
-       id="tspan519">files to create beautiful slide sets.</tspan></tspan></text></switch><text
+       id="tspan57925">files to create beautiful slide sets.</tspan></tspan></text></switch><text
      xml:space="preserve"
-     style="font-style:normal;font-weight:normal;font-size:224px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:3.5"
+     style="font-style:normal;font-weight:normal;font-size:224px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:3.5;stroke-miterlimit:3.2;stroke-dasharray:none"
      x="1125.2391"
      y="864.27106"
      id="text184305"><tspan
        sodipodi:role="line"
        id="tspan184303"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:224px;font-family:'Mona Sans';-inkscape-font-specification:'Mona Sans';fill:#333333;stroke-width:3.5"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:224px;font-family:'Mona Sans';-inkscape-font-specification:'Mona Sans';fill:#333333;stroke-width:3.5;stroke-miterlimit:3.2;stroke-dasharray:none"
        x="1125.2391"
        y="864.27106">Knowledge <tspan
-   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Mona Sans';-inkscape-font-specification:'Mona Sans Bold'"
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Mona Sans';-inkscape-font-specification:'Mona Sans Bold';stroke-width:3.5;stroke-miterlimit:3.2;stroke-dasharray:none"
    id="tspan216944">Pods</tspan> Approach</tspan></text></g></svg>
