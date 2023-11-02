@@ -1,7 +1,7 @@
 # Dockerfile for KPA project to be used in CI
 
 # Start from kpa-marp-pandoc
-FROM ghcr.io/mmul-it/kpa-marp-pandoc:v1.0.0
+FROM ghcr.io/mmul-it/kpa-marp-pandoc:v1.1.0
 
 # Create workdir path
 RUN mkdir /kpa

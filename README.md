@@ -1,4 +1,4 @@
-![KPA - The Knowledge Pods Approach](./images/kpa-github-header.png)
+# ![KPA - The Knowledge Pods Approach](./images/kpa-github-header.png)
 
 [![GitHub Actions CI](https://github.com/mmul-it/kpa/actions/workflows/main.yml/badge.svg?event=push)](https://github.com/mmul-it/kpa/actions/workflows/main.yml)
 
