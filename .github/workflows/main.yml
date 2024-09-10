@@ -82,6 +82,14 @@ jobs:
         username: ${{ vars.QUAY_ROBOT_NAME }}
         password: ${{ secrets.QUAY_ROBOT_TOKEN }}
 
+    - name: Login to docker.io
+      if: github.event_name != 'pull_request'
+      uses: docker/login-action@v3
+      with:
+        registry: docker.io
+        username: ${{ vars.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_TOKEN }}
+
     - name: Build and push
       uses: docker/build-push-action@v5
       with:
@@ -95,3 +103,5 @@ jobs:
            ghcr.io/mmul-it/kpa:${{ github.ref_name }}
            quay.io/mmul/kpa:latest
            quay.io/mmul/kpa:${{ github.ref_name }}
+           docker.io/mmul/kpa:latest
+           docker.io/mmul/kpa:${{ github.ref_name }}
