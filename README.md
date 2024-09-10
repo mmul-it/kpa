@@ -21,8 +21,10 @@ be no need to rely on proprietary tools and formats to create contents.
 **KPA** is at the same time:
 
 - The definition of an approach, described in this page.
-- A container named **kpa** available in the
-  [GitHub Container Registry](https://ghcr.io/mmul-it/kpa).
+- A container named **kpa** available on the main public container registries:
+  - [GitHub Container Registry](https://ghcr.io/mmul-it/kpa).
+  - [Quay](https://quay.io/repository/mmul/kpa).
+  - [Docker Hub](https://hub.docker.com/r/mmul/kpa).
 - An Ansible role named **kpa_generator** available in
   [Ansible Galaxy](https://galaxy.ansible.com/mmul/kpa_generator).
 
@@ -297,7 +299,7 @@ Your command line will be something like this:
 > docker run --rm \
   -v $PWD:/kpa/projects/example \
   -v /tmp:/kpa/output \
-  quay.io/mmul/kpa --project example --yml Example-Training-01.yml
+  ghcr.io/mmul/kpa --project example --yml Example-Training-01.yml
 ```
 
 After a really short time you should get:
