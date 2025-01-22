@@ -11,3 +11,9 @@ rule 'MD029', :style => :ordered
 # Marp wants html in some ways, so this rule should be omitted
 # https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md#md007---unordered-list-indentation
 exclude_rule 'MD033'
+# We want to check for duplicated headers only inside siblings, but this
+# doesen't work in any way:
+# rule 'MD024', :siblings_only => true
+# So we must exclude the rule as whole.
+# https://github.com/DavidAnson/vscode-markdownlint/issues/238
+exclude_rule 'MD024'
