@@ -44,12 +44,12 @@ jobs:
                  playbooks/kpa_generator.yml;
              done
       - name: Upload generated markdown files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: markdowns
           path: output/**.md
       - name: Upload generated pdf files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pdfs
           path: output/**.pdf
