@@ -1,15 +1,31 @@
 # Lesson 1
 
-We're covering **Topic 2** and _we're almost there..._
+We're now covering **Topic 2**.
+
+We can use lists:
+
+- A
+- B
+- C
 
 ---
 
 ## Lesson 2
 
-There's something more to say about **Topic 2** and _It's getting better..._
+This **Topic 2** can be explored with numbered list:
+
+1. A
+2. B
+3. C
+
+And many other things.
 
 ---
 
 ## Lesson 3
 
-That clears it all about **Topic 2**, _Wonderful\!_
+It is also possible to include images inside slides:
+
+![My image](projects/example/images/logo.png)
+<span class="txt-tip">Details and copyrights of the image</span>
+

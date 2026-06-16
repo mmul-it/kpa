@@ -6,6 +6,7 @@ kpa_author: 'Raoul Scarazzini'
 kpa_copyright: '© 2023 MiaMammaUsaLinux.org'
 
 # Pandoc
+pandoc_book_template_file: "{{ kpa_project_dir }}/common/example.tex"
 pandoc_agenda_template_file: "{{ kpa_project_dir }}/common/example.tex"
 pandoc_agenda_background_image: "{{ kpa_project_dir }}/images/schedule-background.png"
 pandoc_agenda_header_includes:
