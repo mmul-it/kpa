@@ -1,2 +1,4 @@
 roles:
   - name: mmul.kpa_generator
+    src: https://github.com/mmul-it/kpa_generator
+    version: v1.0.0

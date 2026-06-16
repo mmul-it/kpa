@@ -1,12 +1,22 @@
 \documentclass{article}
 
 % Example page size and margins
-\usepackage[a4paper,left=60px,right=60px,top=60px,bottom=60px]{geometry}
+\usepackage[
+  a4paper,
+  left=21mm,
+  right=21mm,
+  top=25mm,
+  bottom=65mm,
+  footskip=40mm
+]{geometry}
 
 % Example fix spaces between lines
 \setlength{\emergencystretch}{48px} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0px}\setlength{\parskip}{0px}}
+% Better document style
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
 
 % Example manage section numbering
 $if(numbersections)$
@@ -41,8 +51,18 @@ $endif$
 \usepackage{xcolor}
 \definecolor{examplecolor}{RGB}{33, 35, 56}
 \color{examplecolor}
+
+% Example fonts
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
+
+% Example additional packages
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{calc}
+\usepackage{etoolbox}
+\usepackage{framed}
 
 % Example background
 \usepackage{background}
@@ -59,6 +79,10 @@ $endif$
 $for(header-includes)$
 $header-includes$
 $endfor$
+
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
 
 \title{$title$}
 \author{$for(author)$$author$$sep$ \and $endfor$}
