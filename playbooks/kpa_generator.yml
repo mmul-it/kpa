@@ -4,7 +4,5 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  tasks:
-    - name: Import KPA generator role
-      ansible.builtin.import_role:
-        name: mmul.kpa_generator
+  roles:
+    - role: mmul.kpa_generator
