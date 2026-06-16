@@ -28,4 +28,3 @@ It is also possible to include images inside slides:
 
 ![My image](projects/example/images/logo.png)
 <span class="txt-tip">Details and copyrights of the image</span>
-
