@@ -9,7 +9,7 @@ jobs:
   linter:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/mmul-it/kpa-marp-pandoc:v1.1.0
+      image: ghcr.io/mmul-it/kpa-marp-pandoc:v1.3.0
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -27,7 +27,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/mmul-it/kpa-marp-pandoc:v1.1.0
+      image: ghcr.io/mmul-it/kpa-marp-pandoc:v1.3.0
     needs: linter
     steps:
       - name: Checkout repository
